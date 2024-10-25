@@ -15,6 +15,7 @@
     <Folder Include="Interfaces\Repositories\" />
     <Folder Include="Interfaces\Services\" />
     <Folder Include="Commands\" />
+    <Folder Include="DtoModels\" />
     <Folder Include="Queries\" />
     <Folder Include="Services\" />
   </ItemGroup>
