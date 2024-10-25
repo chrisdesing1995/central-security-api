@@ -1,0 +1,24 @@
+# Ignore .NET build folders in all subprojects
+**/bin/
+**/obj/
+
+# Ignore Visual Studio folders in the main project
+.vs/
+
+# Other files and folders to ignore
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+
+# Ignorar la carpeta .vs y su contenido
+.vs/*
+
+# Ignorar las carpetas bin y obj en ControlProject.Aplicaction
+./CentralSecurity.Infrastructure/bin/
+./CentralSecurity.Infrastructure/obj/
+./CentralSecurity.Domain/bin/
+./CentralSecurity.Domain/obj/
+./CentralSecurity.Api/bin/
+./CentralSecurity.Api/obj/
