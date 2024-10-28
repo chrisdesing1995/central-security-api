@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CentralSecurity.Domain")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b12186b72a85e3e6556aa43a87f505794b272880")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+696574eaa05d880f543a1019584d19280d49e8f5")]
 [assembly: System.Reflection.AssemblyProductAttribute("CentralSecurity.Domain")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CentralSecurity.Domain")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

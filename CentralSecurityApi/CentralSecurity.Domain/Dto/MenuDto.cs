@@ -1,8 +1,7 @@
 ﻿
-
-namespace CentralSecurity.Domain.Entities
+namespace CentralSecurity.Domain.Dto
 {
-    public class Menu : AuditableEntity
+    public class MenuDto:AuditableEntityDto
     {
         public string MenuName { get; set; }
         public Guid? ParentId { get; set; }

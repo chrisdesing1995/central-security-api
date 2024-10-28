@@ -1,12 +1,105 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "D:\\REPO\\central-security-api\\CentralSecurityApi\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{79AE0FD9-878D-43DE-A8F0-DB0F452DB4FE}|CentralSecurity.Infrastructure\\CentralSecurity.Infrastructure.csproj|d:\\repo\\central-security-api\\centralsecurityapi\\centralsecurity.infrastructure\\conts\\conts.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{79AE0FD9-878D-43DE-A8F0-DB0F452DB4FE}|CentralSecurity.Infrastructure\\CentralSecurity.Infrastructure.csproj|solutionrelative:centralsecurity.infrastructure\\conts\\conts.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{872196A5-05D4-4A34-80C6-CF69AC480853}|CentralSecurity.Domain\\CentralSecurity.Domain.csproj|d:\\repo\\central-security-api\\centralsecurityapi\\centralsecurity.domain\\dto\\common\\auditableentitydto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{872196A5-05D4-4A34-80C6-CF69AC480853}|CentralSecurity.Domain\\CentralSecurity.Domain.csproj|solutionrelative:centralsecurity.domain\\dto\\common\\auditableentitydto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{872196A5-05D4-4A34-80C6-CF69AC480853}|CentralSecurity.Domain\\CentralSecurity.Domain.csproj|d:\\repo\\central-security-api\\centralsecurityapi\\centralsecurity.domain\\dto\\userdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{872196A5-05D4-4A34-80C6-CF69AC480853}|CentralSecurity.Domain\\CentralSecurity.Domain.csproj|solutionrelative:centralsecurity.domain\\dto\\userdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{872196A5-05D4-4A34-80C6-CF69AC480853}|CentralSecurity.Domain\\CentralSecurity.Domain.csproj|d:\\repo\\central-security-api\\centralsecurityapi\\centralsecurity.domain\\dto\\menudto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{872196A5-05D4-4A34-80C6-CF69AC480853}|CentralSecurity.Domain\\CentralSecurity.Domain.csproj|solutionrelative:centralsecurity.domain\\dto\\menudto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{872196A5-05D4-4A34-80C6-CF69AC480853}|CentralSecurity.Domain\\CentralSecurity.Domain.csproj|d:\\repo\\central-security-api\\centralsecurityapi\\centralsecurity.domain\\entities\\menu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{872196A5-05D4-4A34-80C6-CF69AC480853}|CentralSecurity.Domain\\CentralSecurity.Domain.csproj|solutionrelative:centralsecurity.domain\\entities\\menu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Conts.cs",
+              "DocumentMoniker": "D:\\REPO\\central-security-api\\CentralSecurityApi\\CentralSecurity.Infrastructure\\Conts\\Conts.cs",
+              "RelativeDocumentMoniker": "CentralSecurity.Infrastructure\\Conts\\Conts.cs",
+              "ToolTip": "D:\\REPO\\central-security-api\\CentralSecurityApi\\CentralSecurity.Infrastructure\\Conts\\Conts.cs",
+              "RelativeToolTip": "CentralSecurity.Infrastructure\\Conts\\Conts.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAQwA4AAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-28T15:23:22.115Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "MenuDto.cs",
+              "DocumentMoniker": "D:\\REPO\\central-security-api\\CentralSecurityApi\\CentralSecurity.Domain\\Dto\\MenuDto.cs",
+              "RelativeDocumentMoniker": "CentralSecurity.Domain\\Dto\\MenuDto.cs",
+              "ToolTip": "D:\\REPO\\central-security-api\\CentralSecurityApi\\CentralSecurity.Domain\\Dto\\MenuDto.cs",
+              "RelativeToolTip": "CentralSecurity.Domain\\Dto\\MenuDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-28T13:35:57.065Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Menu.cs",
+              "DocumentMoniker": "D:\\REPO\\central-security-api\\CentralSecurityApi\\CentralSecurity.Domain\\Entities\\Menu.cs",
+              "RelativeDocumentMoniker": "CentralSecurity.Domain\\Entities\\Menu.cs",
+              "ToolTip": "D:\\REPO\\central-security-api\\CentralSecurityApi\\CentralSecurity.Domain\\Entities\\Menu.cs",
+              "RelativeToolTip": "CentralSecurity.Domain\\Entities\\Menu.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-28T13:35:43.827Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "UserDto.cs",
+              "DocumentMoniker": "D:\\REPO\\central-security-api\\CentralSecurityApi\\CentralSecurity.Domain\\Dto\\UserDto.cs",
+              "RelativeDocumentMoniker": "CentralSecurity.Domain\\Dto\\UserDto.cs",
+              "ToolTip": "D:\\REPO\\central-security-api\\CentralSecurityApi\\CentralSecurity.Domain\\Dto\\UserDto.cs",
+              "RelativeToolTip": "CentralSecurity.Domain\\Dto\\UserDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-28T13:29:16.234Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "AuditableEntityDto.cs",
+              "DocumentMoniker": "D:\\REPO\\central-security-api\\CentralSecurityApi\\CentralSecurity.Domain\\Dto\\Common\\AuditableEntityDto.cs",
+              "RelativeDocumentMoniker": "CentralSecurity.Domain\\Dto\\Common\\AuditableEntityDto.cs",
+              "ToolTip": "D:\\REPO\\central-security-api\\CentralSecurityApi\\CentralSecurity.Domain\\Dto\\Common\\AuditableEntityDto.cs",
+              "RelativeToolTip": "CentralSecurity.Domain\\Dto\\Common\\AuditableEntityDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAkAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-28T13:27:48.09Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
     }
   ]
 }

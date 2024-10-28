@@ -1,4 +1,5 @@
-﻿using CentralSecurity.Domain.Entities;
+﻿using CentralSecurity.Domain.Dto;
+using CentralSecurity.Domain.Entities;
 using CentralSecurity.Domain.Entities.Common;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
@@ -21,10 +22,10 @@ namespace CentralSecurity.Infrastructure.Persistence
         public DbSet<Menu> Menus { get; set; }
         #endregion
 
+        public DbSet<UserLoginDto> Login { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
-            //modelBuilder.Entity<ProductSPCodeDto>().HasNoKey();
             base.OnModelCreating(modelBuilder);
 
         }

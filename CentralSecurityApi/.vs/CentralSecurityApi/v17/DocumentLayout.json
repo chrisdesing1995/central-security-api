@@ -1,12 +1,156 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "D:\\REPO\\central-security-api\\CentralSecurityApi\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{79AE0FD9-878D-43DE-A8F0-DB0F452DB4FE}|CentralSecurity.Infrastructure\\CentralSecurity.Infrastructure.csproj|d:\\repo\\central-security-api\\centralsecurityapi\\centralsecurity.infrastructure\\repositories\\authenticationrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{79AE0FD9-878D-43DE-A8F0-DB0F452DB4FE}|CentralSecurity.Infrastructure\\CentralSecurity.Infrastructure.csproj|solutionrelative:centralsecurity.infrastructure\\repositories\\authenticationrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{79AE0FD9-878D-43DE-A8F0-DB0F452DB4FE}|CentralSecurity.Infrastructure\\CentralSecurity.Infrastructure.csproj|d:\\repo\\central-security-api\\centralsecurityapi\\centralsecurity.infrastructure\\persistence\\centralsecuritydbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{79AE0FD9-878D-43DE-A8F0-DB0F452DB4FE}|CentralSecurity.Infrastructure\\CentralSecurity.Infrastructure.csproj|solutionrelative:centralsecurity.infrastructure\\persistence\\centralsecuritydbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{872196A5-05D4-4A34-80C6-CF69AC480853}|CentralSecurity.Domain\\CentralSecurity.Domain.csproj|d:\\repo\\central-security-api\\centralsecurityapi\\centralsecurity.domain\\dto\\userlogindto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{872196A5-05D4-4A34-80C6-CF69AC480853}|CentralSecurity.Domain\\CentralSecurity.Domain.csproj|solutionrelative:centralsecurity.domain\\dto\\userlogindto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{872196A5-05D4-4A34-80C6-CF69AC480853}|CentralSecurity.Domain\\CentralSecurity.Domain.csproj|d:\\repo\\central-security-api\\centralsecurityapi\\centralsecurity.domain\\dto\\userinsertdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{872196A5-05D4-4A34-80C6-CF69AC480853}|CentralSecurity.Domain\\CentralSecurity.Domain.csproj|solutionrelative:centralsecurity.domain\\dto\\userinsertdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{79AE0FD9-878D-43DE-A8F0-DB0F452DB4FE}|CentralSecurity.Infrastructure\\CentralSecurity.Infrastructure.csproj|d:\\repo\\central-security-api\\centralsecurityapi\\centralsecurity.infrastructure\\conts\\conts.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{79AE0FD9-878D-43DE-A8F0-DB0F452DB4FE}|CentralSecurity.Infrastructure\\CentralSecurity.Infrastructure.csproj|solutionrelative:centralsecurity.infrastructure\\conts\\conts.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{872196A5-05D4-4A34-80C6-CF69AC480853}|CentralSecurity.Domain\\CentralSecurity.Domain.csproj|d:\\repo\\central-security-api\\centralsecurityapi\\centralsecurity.domain\\interfaces\\repositories\\iauthenticationrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{872196A5-05D4-4A34-80C6-CF69AC480853}|CentralSecurity.Domain\\CentralSecurity.Domain.csproj|solutionrelative:centralsecurity.domain\\interfaces\\repositories\\iauthenticationrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{872196A5-05D4-4A34-80C6-CF69AC480853}|CentralSecurity.Domain\\CentralSecurity.Domain.csproj|d:\\repo\\central-security-api\\centralsecurityapi\\centralsecurity.domain\\interfaces\\services\\iauthenticationservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{872196A5-05D4-4A34-80C6-CF69AC480853}|CentralSecurity.Domain\\CentralSecurity.Domain.csproj|solutionrelative:centralsecurity.domain\\interfaces\\services\\iauthenticationservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{872196A5-05D4-4A34-80C6-CF69AC480853}|CentralSecurity.Domain\\CentralSecurity.Domain.csproj|d:\\repo\\central-security-api\\centralsecurityapi\\centralsecurity.domain\\dto\\logindto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{872196A5-05D4-4A34-80C6-CF69AC480853}|CentralSecurity.Domain\\CentralSecurity.Domain.csproj|solutionrelative:centralsecurity.domain\\dto\\logindto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "CentralSecurityDbContext.cs",
+              "DocumentMoniker": "D:\\REPO\\central-security-api\\CentralSecurityApi\\CentralSecurity.Infrastructure\\Persistence\\CentralSecurityDbContext.cs",
+              "RelativeDocumentMoniker": "CentralSecurity.Infrastructure\\Persistence\\CentralSecurityDbContext.cs",
+              "ToolTip": "D:\\REPO\\central-security-api\\CentralSecurityApi\\CentralSecurity.Infrastructure\\Persistence\\CentralSecurityDbContext.cs",
+              "RelativeToolTip": "CentralSecurity.Infrastructure\\Persistence\\CentralSecurityDbContext.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAA1wBgAAAA2AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-28T15:45:25.668Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Conts.cs",
+              "DocumentMoniker": "D:\\REPO\\central-security-api\\CentralSecurityApi\\CentralSecurity.Infrastructure\\Conts\\Conts.cs",
+              "RelativeDocumentMoniker": "CentralSecurity.Infrastructure\\Conts\\Conts.cs",
+              "ToolTip": "D:\\REPO\\central-security-api\\CentralSecurityApi\\CentralSecurity.Infrastructure\\Conts\\Conts.cs",
+              "RelativeToolTip": "CentralSecurity.Infrastructure\\Conts\\Conts.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-28T15:44:47.358Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "AuthenticationRepository.cs",
+              "DocumentMoniker": "D:\\REPO\\central-security-api\\CentralSecurityApi\\CentralSecurity.Infrastructure\\Repositories\\AuthenticationRepository.cs",
+              "RelativeDocumentMoniker": "CentralSecurity.Infrastructure\\Repositories\\AuthenticationRepository.cs",
+              "ToolTip": "D:\\REPO\\central-security-api\\CentralSecurityApi\\CentralSecurity.Infrastructure\\Repositories\\AuthenticationRepository.cs",
+              "RelativeToolTip": "CentralSecurity.Infrastructure\\Repositories\\AuthenticationRepository.cs",
+              "ViewState": "AgIAABYAAAAAAAAAAAAgwCoAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-28T15:41:27.581Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "IAuthenticationServices.cs",
+              "DocumentMoniker": "D:\\REPO\\central-security-api\\CentralSecurityApi\\CentralSecurity.Domain\\Interfaces\\Services\\IAuthenticationServices.cs",
+              "RelativeDocumentMoniker": "CentralSecurity.Domain\\Interfaces\\Services\\IAuthenticationServices.cs",
+              "ToolTip": "D:\\REPO\\central-security-api\\CentralSecurityApi\\CentralSecurity.Domain\\Interfaces\\Services\\IAuthenticationServices.cs",
+              "RelativeToolTip": "CentralSecurity.Domain\\Interfaces\\Services\\IAuthenticationServices.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-28T15:38:08.909Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "IAuthenticationRepository.cs",
+              "DocumentMoniker": "D:\\REPO\\central-security-api\\CentralSecurityApi\\CentralSecurity.Domain\\Interfaces\\Repositories\\IAuthenticationRepository.cs",
+              "RelativeDocumentMoniker": "CentralSecurity.Domain\\Interfaces\\Repositories\\IAuthenticationRepository.cs",
+              "ToolTip": "D:\\REPO\\central-security-api\\CentralSecurityApi\\CentralSecurity.Domain\\Interfaces\\Repositories\\IAuthenticationRepository.cs",
+              "RelativeToolTip": "CentralSecurity.Domain\\Interfaces\\Repositories\\IAuthenticationRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAUAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-28T15:37:57.304Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "UserInsertDto.cs",
+              "DocumentMoniker": "D:\\REPO\\central-security-api\\CentralSecurityApi\\CentralSecurity.Domain\\Dto\\UserInsertDto.cs",
+              "RelativeDocumentMoniker": "CentralSecurity.Domain\\Dto\\UserInsertDto.cs",
+              "ToolTip": "D:\\REPO\\central-security-api\\CentralSecurityApi\\CentralSecurity.Domain\\Dto\\UserInsertDto.cs",
+              "RelativeToolTip": "CentralSecurity.Domain\\Dto\\UserInsertDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-28T15:30:42.741Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "UserLoginDto.cs",
+              "DocumentMoniker": "D:\\REPO\\central-security-api\\CentralSecurityApi\\CentralSecurity.Domain\\Dto\\UserLoginDto.cs",
+              "RelativeDocumentMoniker": "CentralSecurity.Domain\\Dto\\UserLoginDto.cs",
+              "ToolTip": "D:\\REPO\\central-security-api\\CentralSecurityApi\\CentralSecurity.Domain\\Dto\\UserLoginDto.cs",
+              "RelativeToolTip": "CentralSecurity.Domain\\Dto\\UserLoginDto.cs",
+              "ViewState": "AgIAAAEAAAAAAAAAAAAcwAkAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-28T15:30:36.945Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "LoginDto.cs",
+              "DocumentMoniker": "D:\\REPO\\central-security-api\\CentralSecurityApi\\CentralSecurity.Domain\\Dto\\LoginDto.cs",
+              "RelativeDocumentMoniker": "CentralSecurity.Domain\\Dto\\LoginDto.cs",
+              "ToolTip": "D:\\REPO\\central-security-api\\CentralSecurityApi\\CentralSecurity.Domain\\Dto\\LoginDto.cs",
+              "RelativeToolTip": "CentralSecurity.Domain\\Dto\\LoginDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-28T15:40:16.929Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
     }
   ]
 }
