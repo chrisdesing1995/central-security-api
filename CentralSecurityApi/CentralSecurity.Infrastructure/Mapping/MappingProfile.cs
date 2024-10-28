@@ -1,6 +1,7 @@
 ﻿
 using AutoMapper;
-using System.Data;
+using CentralSecurity.Domain.Dto;
+using CentralSecurity.Domain.Types;
 
 namespace CentralSecurity.Infrastructure.Mapping
 {
@@ -9,7 +10,14 @@ namespace CentralSecurity.Infrastructure.Mapping
         public MappingProfile()
         {
             #region Module Security
+            CreateMap<LoginDto, LoginType>();
+            CreateMap<LoginType, LoginDto>();
 
+            CreateMap<UserLoginDto, UserLoginType>();
+            CreateMap<UserLoginType, UserLoginDto>();
+
+            CreateMap<RoleDto, RoleType>();
+            CreateMap<RoleType, RoleDto>();
             #endregion
         }
     }

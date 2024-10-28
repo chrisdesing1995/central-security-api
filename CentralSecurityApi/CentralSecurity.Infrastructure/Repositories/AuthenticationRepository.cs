@@ -24,10 +24,7 @@ namespace CentralSecurity.Infrastructure.Repositories
         {
             try
             {
-                var parameters = new List<SqlParameter>()
-                {
-                    new SqlParameter("@UserName", input.UserName),
-                };
+                var parameters = Param(input);
 
                 string paramsString = string.Join(",", parameters.Select(x => x.ParameterName));
 
@@ -51,5 +48,16 @@ namespace CentralSecurity.Infrastructure.Repositories
                 return new ResponseResult<UserLoginDto>($"Error al obtener usuario: {ex.Message}", false);
             }
         }
+
+        public List<SqlParameter> Param(LoginDto input)
+        {
+            var resultParam = new List<SqlParameter>()
+            {
+                new SqlParameter("@UserName", input.UserName)
+            };
+
+            return resultParam;
+        }
+
     }
 }

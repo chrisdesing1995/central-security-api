@@ -1,8 +1,15 @@
 ﻿
-namespace CentralSecurity.Infrastructure.Conts
+namespace CentralSecurity.Infrastructure.Constant
 {
     public class Conts
     {
+        public static class Accions
+        {
+            public const string INSERT = "INSERT";
+            public const string UPDATE = "UPDATE";
+            public const string DELETED = "DELETED";
+        }
+
         public static class Entity
         {
             public const string Users = "User";

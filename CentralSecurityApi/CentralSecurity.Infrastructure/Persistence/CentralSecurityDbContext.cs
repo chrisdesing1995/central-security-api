@@ -1,8 +1,8 @@
-﻿using CentralSecurity.Domain.Dto;
+﻿using CentralSecurity.Domain.Common;
+using CentralSecurity.Domain.Dto;
 using CentralSecurity.Domain.Entities;
 using CentralSecurity.Domain.Entities.Common;
 using Microsoft.EntityFrameworkCore;
-using System.Data;
 
 namespace CentralSecurity.Infrastructure.Persistence
 {
@@ -16,6 +16,7 @@ namespace CentralSecurity.Infrastructure.Persistence
         }
 
         #region Module Security
+        public DbSet<ResultSp> ResultSp { get; set; }
         public DbSet<AuditLog> AuditLogs { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
@@ -28,6 +29,7 @@ namespace CentralSecurity.Infrastructure.Persistence
         {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Entity<ResultSp>().HasNoKey();
         }
     }
 }

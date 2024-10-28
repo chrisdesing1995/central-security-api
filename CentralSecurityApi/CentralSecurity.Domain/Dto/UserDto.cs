@@ -1,7 +1,7 @@
 ﻿
 namespace CentralSecurity.Domain.Dto
 {
-    public class UserInsertDto :AuditableEntityDto
+    public class UserDto :AuditableEntityDto
     {
         public string Username { get; set; }
         public string Password { get; set; }

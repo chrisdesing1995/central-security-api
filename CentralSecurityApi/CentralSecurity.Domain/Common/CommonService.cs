@@ -1,7 +1,7 @@
 ﻿
 using System.Text;
 
-namespace CentralSecurity.Infrastructure.Common
+namespace CentralSecurity.Domain.Common
 {
     public static class CommonService
     {

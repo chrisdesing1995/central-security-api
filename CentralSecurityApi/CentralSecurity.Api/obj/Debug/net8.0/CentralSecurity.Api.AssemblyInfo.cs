@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CentralSecurity.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b12186b72a85e3e6556aa43a87f505794b272880")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b4e8c1744f14a1395e2d86100466b3f6ee6aa665")]
 [assembly: System.Reflection.AssemblyProductAttribute("CentralSecurity.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CentralSecurity.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

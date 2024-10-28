@@ -17,9 +17,8 @@
 
   <ItemGroup>
     <Folder Include="Controllers\" />
-    <Folder Include="Models\Input\" />
-    <Folder Include="Models\Output\" />
     <Folder Include="Configuration\" />
+    <Folder Include="Services\" />
   </ItemGroup>
 
   <ItemGroup>
