@@ -75,20 +75,21 @@ namespace CentralSecurity.Infrastructure.Repositories
 
                 string paramsString = string.Join(",", parameters.Select(x => x.ParameterName));
 
-                string storedProcedureName = Const.StoreProcedure.SP_INSERT_UPDATE_ROL;
+                var storedProcedureName = Const.StoreProcedure.SP_INSERT_UPDATE_ROL;
 
-                var dataResult = _dbContext.ResultSp
-                .FromSqlRaw($"EXEC {storedProcedureName}"," ", parameters.ToArray())
-                .AsEnumerable()
-                .FirstOrDefault();
+                var dataResult = await _dbContext.ResultSp
+                    .FromSqlRaw($"EXEC {storedProcedureName} {paramsString}", parameters.ToArray())
+                    .AsNoTracking()
+                    .ToListAsync();
 
-                return dataResult;
+                return dataResult.FirstOrDefault();
             }
             catch (Exception ex)
             {
-                throw new Exception("Error al crear el rol " + ex.Message);
+                throw new Exception("Error al crear el rol: " + ex.Message);
             }
         }
+
 
         public async Task<ResultSp> UpdateRoleAsync(RoleDto role)
         {
@@ -122,13 +123,13 @@ namespace CentralSecurity.Infrastructure.Repositories
         {
             var resultParam = new List<SqlParameter>()
             {
-                new SqlParameter("@Id", input.Id != Guid.Empty ? input.Id : Guid.NewGuid()),
-                new SqlParameter("@RolName", input.RoleName),
+                new SqlParameter("@Id", input.Id != Guid.Empty ? input.Id : DBNull.Value),
+                new SqlParameter("@RoleName", input.RoleName),
                 new SqlParameter("@Description", input.Description ?? SqlString.Null),
-                new SqlParameter("@UserCreated", input.UserCreated ?? SqlString.Null),
                 new SqlParameter("@CreatedAt", input.CreatedAt ?? SqlDateTime.Null),
-                new SqlParameter("@UserUpdated", input.UserUpdated ?? SqlString.Null),
+                new SqlParameter("@UserCreated", input.UserCreated ?? SqlString.Null),
                 new SqlParameter("@UpdatedAt", input.UpdatedAt ?? SqlDateTime.Null),
+                new SqlParameter("@UserUpdated", input.UserUpdated ?? SqlString.Null),
                 new SqlParameter("@Accion", Accion)
             };
 

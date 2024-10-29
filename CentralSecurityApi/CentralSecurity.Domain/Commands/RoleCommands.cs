@@ -13,7 +13,8 @@ namespace CentralSecurity.Domain.Commands
     {
         private readonly IMapper _mapper;
         private readonly IRoleRepository _roleRepository;
-        
+        private readonly IAuditService _auditService;
+
         public RoleCommands(IMapper mapper, IRoleRepository roleRepository)
         {
             _mapper = mapper;
@@ -26,6 +27,7 @@ namespace CentralSecurity.Domain.Commands
             {
                 var roleDto = _mapper.Map<RoleDto>(roleType);
                 roleDto.CreatedAt = DateTime.Now;
+                roleDto.UserCreated = "Admin";//_auditService.GetCurrentUserName();
                 var result = await _roleRepository.CreateRoleAsync(roleDto);
             
                 return result;
@@ -42,6 +44,7 @@ namespace CentralSecurity.Domain.Commands
             {
                 var roleDto = _mapper.Map<RoleDto>(roleType);
                 roleDto.UpdatedAt = DateTime.Now;
+                roleDto.UserUpdated = _auditService.GetCurrentUserName();
                 var result = await _roleRepository.UpdateRoleAsync(roleDto);
 
                 return result;

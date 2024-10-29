@@ -21,6 +21,7 @@ var corsOrigin = "corsOrigin";
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddHttpContextAccessor();
 
 // Add DbContext.
 builder.Services.AddDbContext<CentralSecurityDbContext>(options =>
@@ -33,13 +34,19 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
     {
         ValidateIssuerSigningKey = true,
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(s: builder.Configuration["Jwt:key"])),
-        ValidateIssuer = false,
-        ValidateAudience = false,
+        ValidateIssuer = true,
+        ValidIssuer = builder.Configuration["Jwt:Issuer"],
+        ValidateAudience = true,
+        ValidAudience = builder.Configuration["Jwt:Audience"],
     };
 });
 
-builder.Services.AddAutoMapper(typeof(MappingProfileApi));
-builder.Services.AddAutoMapper(typeof(MappingProfile));
+builder.Services.AddAutoMapper(cfg =>
+{
+    cfg.AddProfile<MappingProfileApi>();
+    cfg.AddProfile<MappingProfile>();
+});
+
 
 builder.Services.AddCors(options =>
 {

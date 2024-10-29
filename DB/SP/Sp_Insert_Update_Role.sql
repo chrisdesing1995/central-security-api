@@ -3,12 +3,12 @@ GO
 
 CREATE OR ALTER PROCEDURE [dbo].[Sp_Insert_Update_Role]
 (
-    @Id UNIQUEIDENTIFIER,
+    @Id UNIQUEIDENTIFIER = NULL,
     @RoleName NVARCHAR(100),
     @Description NVARCHAR(500) = NULL,
-    @CreatedAt DATETIME2(7) = NULL,
+    @CreatedAt DATETIME = NULL,
     @UserCreated NVARCHAR(100) = NULL,
-    @UpdatedAt DATETIME2(7) = NULL,
+    @UpdatedAt DATETIME = NULL,
     @UserUpdated NVARCHAR(100) = NULL,
     @Accion NVARCHAR(20)
 )
@@ -85,6 +85,6 @@ BEGIN
         SET @Status = 0;
     END CATCH
 
-    SELECT @MESSAGES AS Messages, @Status AS Status;
+    SELECT @MESSAGES AS Messages, @Status AS Status, @Id AS Data;
 END
 GO
