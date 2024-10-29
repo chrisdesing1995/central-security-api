@@ -2,6 +2,7 @@
 using CentralSecurity.Domain.Common;
 using CentralSecurity.Domain.Dto;
 using CentralSecurity.Domain.Interfaces.Repositories;
+using CentralSecurity.Infrastructure.Constant;
 using CentralSecurity.Infrastructure.Persistence;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
@@ -28,7 +29,7 @@ namespace CentralSecurity.Infrastructure.Repositories
 
                 string paramsString = string.Join(",", parameters.Select(x => x.ParameterName));
 
-                string storedProcedureName = Conts.Conts.StoreProcedure.SP_GET_ALL_USER_LOGIN;
+                string storedProcedureName = Const.StoreProcedure.SP_GET_ALL_USER_LOGIN;
 
                 var dataResult = await _dbContext.Login
                   .FromSqlRaw($"EXEC {storedProcedureName} @UserName", parameters.ToArray())

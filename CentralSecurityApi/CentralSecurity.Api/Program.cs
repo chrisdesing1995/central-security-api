@@ -3,6 +3,16 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using CentralSecurity.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
+using CentralSecurity.Api.Services.Interfaces;
+using CentralSecurity.Api.Services;
+using CentralSecurity.Domain.Commands.Interfaces;
+using CentralSecurity.Domain.Commands;
+using CentralSecurity.Domain.Queries.Interfaces;
+using CentralSecurity.Domain.Queries;
+using CentralSecurity.Domain.Interfaces.Repositories;
+using CentralSecurity.Infrastructure.Repositories;
+using CentralSecurity.Infrastructure.Mapping;
+using CentralSecurity.Api.Models.Mapping;
 
 var builder = WebApplication.CreateBuilder(args);
 var corsOrigin = "corsOrigin";
@@ -28,7 +38,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
     };
 });
 
-//builder.Services.AddAutoMapper(typeof(Program));
+builder.Services.AddAutoMapper(typeof(MappingProfileApi));
+builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 builder.Services.AddCors(options =>
 {
@@ -47,11 +58,10 @@ builder.Services.AddCors(options =>
 
 // Add Repositories.
 #region Module Security
-//builder.Services.AddScoped<IAuthRepository, AuthRepository>();
-//builder.Services.AddScoped<IUserRepository, UserRepository>();
-//builder.Services.AddScoped<IMenuRepository, MenuRepository>();
-//builder.Services.AddScoped<IRolRepository, RolRepository>();
-//builder.Services.AddScoped<IExecuteStoreProcedure, ExecuteStoreProcedure>();
+builder.Services.AddScoped<IRoleService, RoleService>();
+builder.Services.AddScoped<IRoleCommands, RoleCommands>();
+builder.Services.AddScoped<IRoleQueries, RoleQueries>();
+builder.Services.AddScoped<IRoleRepository, RoleRepository>();
 #endregion
 
 var app = builder.Build();

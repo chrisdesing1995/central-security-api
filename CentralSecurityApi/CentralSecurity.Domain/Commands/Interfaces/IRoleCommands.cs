@@ -7,9 +7,9 @@ namespace CentralSecurity.Domain.Commands.Interfaces
 {
     public interface IRoleCommands
     {
-        Task<ResponseResult<RoleType>> CreateRoleAsync(RoleType roleType);
-        Task<ResponseResult<RoleType>> UpdateRoleAsync(RoleType roleType);
-        Task<ResponseResult<RoleType>> DeletedRoleAsync(Guid id);
+        Task<ResultSp> CreateRoleAsync(RoleType roleType);
+        Task<ResultSp> UpdateRoleAsync(RoleType roleType);
+        Task<ResultSp> DeletedRoleAsync(Guid id);
     }
 
 }

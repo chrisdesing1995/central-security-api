@@ -5,9 +5,9 @@ CREATE TABLE [User] (
     Password NVARCHAR(800) NOT NULL UNIQUE,
     Email NVARCHAR(100) NOT NULL UNIQUE,
     IsActive NVARCHAR(1) NOT NULL DEFAULT 'A',
-    CreatedAt DATETIME2 NOT NULL DEFAULT GETDATE(),
+    CreatedAt DATETIME NOT NULL DEFAULT GETDATE(),
     UserCreated NVARCHAR(100) NOT NULL,
-    UpdatedAt DATETIME2 NULL,
+    UpdatedAt DATETIME NULL,
     UserUpdated NVARCHAR(100) NULL
 );
 
@@ -15,9 +15,9 @@ CREATE TABLE [Role] (
     Id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
     RoleName NVARCHAR(100) NOT NULL UNIQUE,
     Description NVARCHAR(500) NULL,
-    CreatedAt DATETIME2 NOT NULL DEFAULT GETDATE(),
+    CreatedAt DATETIME NOT NULL DEFAULT GETDATE(),
     UserCreated NVARCHAR(100) NOT NULL,
-    UpdatedAt DATETIME2 NULL,
+    UpdatedAt DATETIME NULL,
     UserUpdated NVARCHAR(100) NULL
 );
 
@@ -29,9 +29,9 @@ CREATE TABLE [Menu] (
     Icon NVARCHAR(100) NULL,
     SortOrder INT NOT NULL DEFAULT 0,
     IsActive NVARCHAR(1) NOT NULL DEFAULT 'A',
-    CreatedAt DATETIME2 NOT NULL DEFAULT GETDATE(),
+    CreatedAt DATETIME NOT NULL DEFAULT GETDATE(),
     UserCreated NVARCHAR(100) NOT NULL,
-    UpdatedAt DATETIME2 NULL,
+    UpdatedAt DATETIME NULL,
     UserUpdated NVARCHAR(100) NULL
 );
 
@@ -53,6 +53,6 @@ CREATE TABLE AuditLog (
     Action NVARCHAR(100) NOT NULL, -- (Create, Update, Delete)
     TableName NVARCHAR(100) NOT NULL, -- Nombre de la tabla
     UserId UNIQUEIDENTIFIER NULL, -- ID del usuario que realizó la acción
-    Timestamp DATETIME2 NOT NULL DEFAULT GETDATE(), -- Fecha y hora de la acción
+    Timestamp DATETIME NOT NULL DEFAULT GETDATE(), -- Fecha y hora de la acción
     Details NVARCHAR(MAX) NULL -- Detalles adicionales sobre la acción
 );

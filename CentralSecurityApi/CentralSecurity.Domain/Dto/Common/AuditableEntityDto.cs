@@ -7,6 +7,6 @@ namespace CentralSecurity.Domain.Dto
         public DateTime? CreatedAt { get; set; }
         public string? UserCreated { get; set; }
         public DateTime? UpdatedAt { get; set; }
-        public string UserUpdated { get; set; }
+        public string? UserUpdated { get; set; }
     }
 }

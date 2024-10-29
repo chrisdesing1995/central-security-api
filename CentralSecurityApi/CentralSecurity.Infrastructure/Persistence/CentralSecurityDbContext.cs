@@ -30,6 +30,7 @@ namespace CentralSecurity.Infrastructure.Persistence
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<ResultSp>().HasNoKey();
+            modelBuilder.Entity<UserLoginDto>().HasNoKey();
         }
     }
 }
