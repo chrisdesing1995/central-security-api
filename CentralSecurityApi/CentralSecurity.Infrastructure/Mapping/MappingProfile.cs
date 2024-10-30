@@ -13,6 +13,12 @@ namespace CentralSecurity.Infrastructure.Mapping
             #region Mapper Dto and Entity
             CreateMap<Role, RoleDto>();
             CreateMap<RoleDto, Role>();
+
+            CreateMap<User, UserDto>();
+            CreateMap<UserDto, User>();
+
+            CreateMap<User, UserSpDto>();
+            CreateMap<UserSpDto, User>();
             #endregion
 
             #region Mapper Dto and type
@@ -21,6 +27,9 @@ namespace CentralSecurity.Infrastructure.Mapping
 
             CreateMap<UserLoginDto, UserLoginType>();
             CreateMap<UserLoginType, UserLoginDto>();
+
+            CreateMap<UserDto, UserType>();
+            CreateMap<UserType, UserDto>();
 
             CreateMap<RoleDto, RoleType>();
             CreateMap<RoleType, RoleDto>();

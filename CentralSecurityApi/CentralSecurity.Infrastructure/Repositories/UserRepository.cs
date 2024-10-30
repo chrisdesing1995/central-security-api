@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿
+using AutoMapper;
 using CentralSecurity.Domain.Common;
 using CentralSecurity.Domain.Dto;
 using CentralSecurity.Domain.Interfaces.Repositories;
@@ -10,30 +11,29 @@ using System.Data.SqlTypes;
 
 namespace CentralSecurity.Infrastructure.Repositories
 {
-    public class RoleRepository: IRoleRepository
+    public class UserRepository: IUserRepository
     {
         private readonly CentralSecurityDbContext _dbContext;
         private readonly IMapper _mapper;
 
-        public RoleRepository(CentralSecurityDbContext dbContext, IMapper mapper)
+        public UserRepository(CentralSecurityDbContext dbContext, IMapper mapper)
         {
             _dbContext = dbContext;
             _mapper = mapper;
         }
-
-        public async Task<IEnumerable<RoleDto>> GetAllRoleAsync()
+        public async Task<IEnumerable<UserSpDto>> GetAllUserAsync()
         {
             try
             {
-                string storedProcedureName = Const.StoreProcedure.SP_GET_ALL_ROLES;
+                string storedProcedureName = Const.StoreProcedure.SP_GET_ALL_USERS;
 
-                var dataResult = _dbContext.Roles
+                var dataResult = _dbContext.UserSp
                       .FromSqlRaw($"EXEC {storedProcedureName}")
                       .AsEnumerable()
                       .ToList();
 
-                var roles = _mapper.Map<IEnumerable<RoleDto>>(dataResult);
-                return roles;
+                var users = _mapper.Map<IEnumerable<UserSpDto>>(dataResult);
+                return users;
             }
             catch (Exception ex)
             {
@@ -41,39 +41,36 @@ namespace CentralSecurity.Infrastructure.Repositories
             }
         }
 
-        public async Task<RoleDto> GetRoleByIdAsync(Guid roleId)
+        public async Task<UserSpDto> GetUserByIdAsync(Guid userId)
         {
             try
             {
-                var parameters = Param(roleId);
+                var parameters = Param(userId);
+                string storedProcedureName = Const.StoreProcedure.SP_GET_ALL_USER_ID;
 
-                string paramsString = string.Join(",", parameters.Select(x => x.ParameterName));
-
-                string storedProcedureName = Const.StoreProcedure.SP_GET_ALL_ROL_ID;
-                var query = $"EXEC {storedProcedureName} {paramsString}";
-
-                var dataResult = _dbContext.Roles
-                      .FromSqlRaw(query, parameters.ToArray())
+                var dataResult = _dbContext.UserSp
+                      .FromSqlRaw($"EXEC {storedProcedureName}")
                       .AsEnumerable()
-                      .FirstOrDefault();
+                      .ToList();
 
-                return _mapper.Map<RoleDto>(dataResult); ;
+                var user = _mapper.Map<UserSpDto>(dataResult);
+                return user;
             }
             catch (Exception ex)
             {
-                throw new Exception("Error al obtener los roles por Id " + ex.Message);
+                throw new Exception("Error al obtener los roles " + ex.Message);
             }
         }
 
-        public async Task<ResultSp> CreateRoleAsync(RoleDto role)
+        public async Task<ResultSp> CreateUserAsync(UserDto user)
         {
             try
             {
-                var parameters = Param(role, Const.Accions.INSERT);
+                var parameters = Param(user, Const.Accions.INSERT);
 
                 string paramsString = string.Join(",", parameters.Select(x => x.ParameterName));
 
-                var storedProcedureName = Const.StoreProcedure.SP_INSERT_UPDATE_ROL;
+                var storedProcedureName = Const.StoreProcedure.SP_INSERT_UPDATE_USER;
                 var query = $"EXEC {storedProcedureName} {paramsString}";
 
                 var dataResult = _dbContext.ResultSp
@@ -85,46 +82,49 @@ namespace CentralSecurity.Infrastructure.Repositories
             }
             catch (Exception ex)
             {
-                throw new Exception("Error al crear el rol: " + ex.Message);
+                throw new Exception("Error al crear el usuario: " + ex.Message);
             }
         }
 
-        public async Task<ResultSp> UpdateRoleAsync(RoleDto role)
+        public async Task<ResultSp> UpdateUserAsync(UserDto user)
         {
             try
             {
-                var parameters = Param(role, Const.Accions.UPDATE);
+                var parameters = Param(user, Const.Accions.UPDATE);
 
                 string paramsString = string.Join(",", parameters.Select(x => x.ParameterName));
 
-                string storedProcedureName = Const.StoreProcedure.SP_INSERT_UPDATE_ROL;
+                var storedProcedureName = Const.StoreProcedure.SP_INSERT_UPDATE_USER;
                 var query = $"EXEC {storedProcedureName} {paramsString}";
 
                 var dataResult = _dbContext.ResultSp
-                .FromSqlRaw(query, parameters.ToArray())
-                .AsEnumerable()
-                .FirstOrDefault();
+                    .FromSqlRaw(query, parameters.ToArray())
+                    .AsEnumerable()
+                    .FirstOrDefault();
 
                 return dataResult;
             }
             catch (Exception ex)
             {
-                throw new Exception("Error al actualizar el rol " + ex.Message);
+                throw new Exception("Error al actualizar el usuario: " + ex.Message);
             }
         }
 
-        public Task<ResultSp> DeleteRoleAsync(Guid roleId)
+        public Task<ResultSp> DeleteUserAsync(Guid userId)
         {
             throw new NotImplementedException();
         }
 
-        public List<SqlParameter> Param(RoleDto input, string Accion)
+        public List<SqlParameter> Param(UserDto input, string Accion)
         {
             var resultParam = new List<SqlParameter>()
             {
                 new SqlParameter("@Id", input.Id != null && input.Id != Guid.Empty ? (object)input.Id : SqlString.Null),
-                new SqlParameter("@RoleName", input.RoleName),
-                new SqlParameter("@Description", input.Description ?? SqlString.Null),
+                new SqlParameter("@RoleIds", input.RoleIds),
+                new SqlParameter("@Username", input.Username),
+                new SqlParameter("@Pasword", input.Password),
+                new SqlParameter("@Email", input.Email),
+                new SqlParameter("@IsActive", input.IsActive),
                 new SqlParameter("@CreatedAt", input.CreatedAt ?? SqlDateTime.Null),
                 new SqlParameter("@UserCreated", input.UserCreated ?? SqlString.Null),
                 new SqlParameter("@UpdatedAt", input.UpdatedAt ?? SqlDateTime.Null),
@@ -144,5 +144,6 @@ namespace CentralSecurity.Infrastructure.Repositories
 
             return resultParam;
         }
+
     }
 }

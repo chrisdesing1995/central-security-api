@@ -16,11 +16,15 @@ namespace CentralSecurity.Infrastructure.Persistence
         }
 
         #region Module Security
-        public DbSet<ResultSp> ResultSp { get; set; }
-        public DbSet<AuditLog> AuditLogs { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<Menu> Menus { get; set; }
+        #endregion
+
+        #region DbSet no entity
+        public DbSet<ResultSp> ResultSp { get; set; }
+        public DbSet<AuditLog> AuditLogs { get; set; }
+        public DbSet<UserSpDto> UserSp { get; set; }
         #endregion
 
         public DbSet<UserLoginDto> Login { get; set; }
@@ -31,6 +35,7 @@ namespace CentralSecurity.Infrastructure.Persistence
 
             modelBuilder.Entity<ResultSp>().HasNoKey();
             modelBuilder.Entity<UserLoginDto>().HasNoKey();
+            modelBuilder.Entity<UserSpDto>().HasNoKey();
         }
     }
 }

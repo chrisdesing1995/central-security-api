@@ -1,5 +1,6 @@
 ﻿using CentralSecurity.Api.Models.Input;
 using CentralSecurity.Api.Models.Output;
+using CentralSecurity.Api.Services;
 using CentralSecurity.Api.Services.Interfaces;
 using CentralSecurity.Domain.Common;
 using Microsoft.AspNetCore.Authorization;
@@ -11,27 +12,27 @@ namespace CentralSecurity.Api.Controllers
     [ApiController]
     [Route("api/[controller]")]
     //[Authorize]
-    public class RoleController: ControllerBase
+    public class UserController: ControllerBase
     {
-        private IRoleService _roleService;
+        private IUserService _userService;
 
-        public RoleController(IRoleService roleService) { 
-            _roleService = roleService;
+        public UserController(IUserService userService) { 
+            _userService = userService;
         }
 
         [HttpGet("GetAll")]
-        [SwaggerResponse(StatusCodes.Status200OK,Type= typeof(ResponseResult<IEnumerable<RoleOutput>>))]
+        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(ResponseResult<IEnumerable<UserOutput>>))]
         [SwaggerResponse(StatusCodes.Status400BadRequest)]
         [SwaggerResponse(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetAll()
         {
-            var responseResult = await _roleService.GetAllRoleAsync();
+            var responseResult = await _userService.GetAllUserAsync();
 
-            var outputResult = new ResponseResult<IEnumerable<RoleOutput>>
+            var outputResult = new ResponseResult<IEnumerable<UserOutput>>
             {
                 Result = responseResult,
                 Status = responseResult != null ? true : false,
-                Message = responseResult != null ? "Consulta exitosa" : "Error al obtener roles",
+                Message = responseResult != null ? "Consulta exitosa" : "Error al obtener usuarios",
             };
 
             return Ok(outputResult);
@@ -39,18 +40,18 @@ namespace CentralSecurity.Api.Controllers
 
 
         [HttpGet("GetById/{id}")]
-        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(ResponseResult<RoleOutput>))]
+        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(ResponseResult<UserOutput>))]
         [SwaggerResponse(StatusCodes.Status400BadRequest)]
         [SwaggerResponse(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetById(Guid id)
         {
-            var responseResult = await _roleService.GetRoleByIdAsync(id);
+            var responseResult = await _userService.GetUserByIdAsync(id);
 
-            var outputResult = new ResponseResult<RoleOutput>
+            var outputResult = new ResponseResult<UserOutput>
             {
                 Result = responseResult,
                 Status = responseResult != null ? true : false,
-                Message = responseResult != null ? "Consulta exitosa" : "Error al obtener rol por Id",
+                Message = responseResult != null ? "Consulta exitosa" : "Error al obtener usuario por Id",
             };
 
             return Ok(outputResult);
@@ -60,10 +61,11 @@ namespace CentralSecurity.Api.Controllers
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(IActionResult))]
         [SwaggerResponse(StatusCodes.Status400BadRequest)]
         [SwaggerResponse(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> Create(RoleInput input)
+        public async Task<IActionResult> Create(UserInput input)
         {
-            var responseResult = await _roleService.CreateRoleAsync(input);
-            return Ok(new {
+            var responseResult = await _userService.CreateUserAsync(input);
+            return Ok(new
+            {
                 Result = responseResult.Data,
                 responseResult.Status,
                 responseResult.Message
@@ -75,9 +77,9 @@ namespace CentralSecurity.Api.Controllers
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(IActionResult))]
         [SwaggerResponse(StatusCodes.Status400BadRequest)]
         [SwaggerResponse(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> Update(RoleInput input)
+        public async Task<IActionResult> Update(UserInput input)
         {
-            var responseResult = await _roleService.UpdateRoleAsync(input);
+            var responseResult = await _userService.UpdateUserAsync(input);
             return Ok(new
             {
                 Result = responseResult.Data,
@@ -86,6 +88,5 @@ namespace CentralSecurity.Api.Controllers
             });
 
         }
-
     }
 }

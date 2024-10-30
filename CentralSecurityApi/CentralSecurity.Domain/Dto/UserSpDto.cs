@@ -1,9 +1,9 @@
 ﻿
-namespace CentralSecurity.Api.Models.Output
+namespace CentralSecurity.Domain.Dto
 {
-    public class UserOutput
+    public class UserSpDto
     {
-        public Guid Id { get; set; }
+        public Guid? Id { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
         public string Email { get; set; }

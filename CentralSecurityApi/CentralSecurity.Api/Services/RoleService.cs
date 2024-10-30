@@ -36,11 +36,11 @@ namespace CentralSecurity.Api.Services
             }
         }
 
-        public async Task<RoleOutput> GetAllRoleByIdAsync(Guid roleId)
+        public async Task<RoleOutput> GetRoleByIdAsync(Guid roleId)
         {
             try
             {
-                var rolType = await _roleQueries.GetAllRoleByIdAsync(roleId);
+                var rolType = await _roleQueries.GetRoleByIdAsync(roleId);
 
                 return _mapper.Map<RoleOutput>(rolType);
             }

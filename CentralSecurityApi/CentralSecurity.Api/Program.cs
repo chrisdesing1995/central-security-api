@@ -69,6 +69,11 @@ builder.Services.AddScoped<IRoleService, RoleService>();
 builder.Services.AddScoped<IRoleCommands, RoleCommands>();
 builder.Services.AddScoped<IRoleQueries, RoleQueries>();
 builder.Services.AddScoped<IRoleRepository, RoleRepository>();
+
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IUserCommands, UserCommands>();
+builder.Services.AddScoped<IUserQueries, UserQueries>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 #endregion
 
 var app = builder.Build();
