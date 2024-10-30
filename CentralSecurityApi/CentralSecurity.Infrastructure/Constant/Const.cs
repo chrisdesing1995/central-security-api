@@ -37,7 +37,7 @@ namespace CentralSecurity.Infrastructure.Constant
             public const string SP_INSERT_UPDATE_USER = "Sp_Insert_Update_User";
 
             public const string SP_GET_ALL_ROLES = "Sp_Get_Roles";
-            public const string SP_GET_ALL_ROL_ID = "Sp_Get_Roles_Id";
+            public const string SP_GET_ALL_ROL_ID = "Sp_Get_Roles_By_Id";
             public const string SP_INSERT_UPDATE_ROL = "Sp_Insert_Update_Role";
 
         }

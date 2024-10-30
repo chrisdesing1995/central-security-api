@@ -27,11 +27,11 @@ BEGIN
         IF EXISTS (SELECT 1 FROM [dbo].[Role] WHERE [RoleName] = @RoleName
             AND (@Accion = 'INSERT' OR (@Accion = 'UPDATE' AND [Id] <> @Id)))
         BEGIN
-            SET @MESSAGES = 'El nombre del rol ya está en uso.';
+            SET @MESSAGES = 'El rol '+@RoleName+' ya está en uso.';
             SET @Status = 0;
 
             ROLLBACK TRANSACTION;
-            SELECT @MESSAGES AS Messages, @Status AS Status;
+            SELECT @MESSAGES AS Messages, @Status AS Status, NULL AS Data;
             RETURN;
         END
 
@@ -45,11 +45,10 @@ BEGIN
             EXEC [dbo].[Sp_Insert_AuditLog]
 											@Action = @Accion,
 											@TableName = 'Role',
-											@UserId = @Id,
+											@User = @UserCreated,
 											@Details = @AuditDetails;
 
-            -- Configurar mensaje y estado
-            SET @MESSAGES = 'Rol creado exitosamente.';
+            SET @MESSAGES = 'Rol '+@RoleName+' creado exitosamente.';
             SET @Status = 1;
         END
         ELSE IF @Accion = 'UPDATE'
@@ -64,10 +63,10 @@ BEGIN
             EXEC [dbo].[Sp_Insert_AuditLog]
 											@Action = @Accion,
 											@TableName = 'Role',
-											@UserId = @Id,
+											@User = @UserUpdated,
 											@Details = @AuditDetails;
 
-            SET @MESSAGES = 'Rol actualizado exitosamente.';
+            SET @MESSAGES = 'Rol '+@RoleName+' actualizado exitosamente.';
             SET @Status = 1;
         END
         ELSE
@@ -85,6 +84,6 @@ BEGIN
         SET @Status = 0;
     END CATCH
 
-    SELECT @MESSAGES AS Messages, @Status AS Status, @Id AS Data;
+    SELECT @MESSAGES AS Messages, @Status AS Status, CONVERT(NVARCHAR(100), @Id) AS Data;
 END
 GO

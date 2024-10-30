@@ -35,24 +35,24 @@ CREATE TABLE [Menu] (
     UserUpdated NVARCHAR(100) NULL
 );
 
-CREATE TABLE UserRole (
+CREATE TABLE [UserRole] (
     UserId UNIQUEIDENTIFIER NOT NULL,
     RoleId UNIQUEIDENTIFIER NOT NULL,
     PRIMARY KEY (UserId, RoleId)
 );
 
-CREATE TABLE RoleMenu (
+CREATE TABLE [RoleMenu] (
     RoleId UNIQUEIDENTIFIER NOT NULL,
     MenuId UNIQUEIDENTIFIER NOT NULL,
     PRIMARY KEY (RoleId, MenuId)
 );
 
 
-CREATE TABLE AuditLog (
+CREATE TABLE [AuditLog] (
     Id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY DEFAULT NEWID(),
-    Action NVARCHAR(100) NOT NULL, -- (Create, Update, Delete)
+    [Action] NVARCHAR(100) NOT NULL, -- (Create, Update, Delete)
     TableName NVARCHAR(100) NOT NULL, -- Nombre de la tabla
-    UserId UNIQUEIDENTIFIER NULL, -- ID del usuario que realizó la acción
-    Timestamp DATETIME NOT NULL DEFAULT GETDATE(), -- Fecha y hora de la acción
+    [User] NVARCHAR(100) NULL, -- ID del usuario que realizó la acción
+    [Timestamp] DATETIME NOT NULL DEFAULT GETDATE(), -- Fecha y hora de la acción
     Details NVARCHAR(MAX) NULL -- Detalles adicionales sobre la acción
 );

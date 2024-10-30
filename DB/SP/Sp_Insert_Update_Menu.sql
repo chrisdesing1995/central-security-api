@@ -3,7 +3,7 @@ GO
 
 CREATE OR ALTER PROCEDURE [dbo].[Sp_Insert_Update_Menu]
 (
-    @Id UNIQUEIDENTIFIER,
+    @Id UNIQUEIDENTIFIER = NULL,
     @MenuName NVARCHAR(100),
     @ParentId UNIQUEIDENTIFIER = NULL,
     @Url NVARCHAR(256),
@@ -31,7 +31,7 @@ BEGIN
             AND ISNULL([ParentId], '00000000-0000-0000-0000-000000000000') = ISNULL(@ParentId, '00000000-0000-0000-0000-000000000000')
             AND (@Accion = 'INSERT' OR (@Accion = 'UPDATE' AND [Id] <> @Id)))
         BEGIN
-            SET @MESSAGES = 'El nombre del menú ya está en uso.';
+            SET @MESSAGES = 'El nombre del menú '+@MenuName+' ya está en uso.';
             SET @Status = 0;
 
             ROLLBACK TRANSACTION;
@@ -49,7 +49,7 @@ BEGIN
             EXEC [dbo].[Sp_Insert_AuditLog]
 											@Action = @Accion,
 											@TableName = 'Menu',
-											@UserId = @Id,
+											@User = @UserCreated,
 											@Details = @AuditDetails;
 
             SET @MESSAGES = 'Menú creado exitosamente.';
@@ -71,7 +71,7 @@ BEGIN
             EXEC [dbo].[Sp_Insert_AuditLog]
 											@Action = @Accion,
 											@TableName = 'Menu',
-											@UserId = @Id,
+											@User = @UserUpdated,
 											@Details = @AuditDetails;
 
             SET @MESSAGES = 'Menú actualizado exitosamente.';
@@ -92,6 +92,6 @@ BEGIN
         SET @Status = 0;
     END CATCH
 
-    SELECT @MESSAGES AS Messages, @Status AS Status;
+    SELECT @MESSAGES AS Messages, @Status AS Status, CONVERT(NVARCHAR(100),@Id) AS Data;
 END
 GO

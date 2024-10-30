@@ -2,7 +2,7 @@ USE MarketMaxDB
 GO
 CREATE OR ALTER PROCEDURE [dbo].[Sp_Insert_Update_User]
 (
-    @Id UNIQUEIDENTIFIER,
+    @Id UNIQUEIDENTIFIER = NULL,
     @RoleIds NVARCHAR(MAX),
     @Username NVARCHAR(50),
     @Password NVARCHAR(200),
@@ -44,13 +44,21 @@ BEGIN
             INSERT INTO [dbo].[User] ([Id],[Username],[Password],[Email],[IsActive],[CreatedAt],[UserCreated],[UpdatedAt],[UserUpdated])
             VALUES (@Id, @Username, @Password, @Email, @IsActive, @CreatedAt, @UserCreated, NULL, NULL);
 
+			
+			EXEC [dbo].[Sp_Insert_AuditLog] @Action = @Accion,
+											@TableName = 'User',
+											@User = @UserCreated,
+											@Details = @AuditDetails;
+
             INSERT INTO [dbo].[UserRole] ([UserId],[RoleId])
             SELECT @Id, value
             FROM STRING_SPLIT(@RoleIds, ',');
 			
+			SET @AuditDetails = CONCAT('Acción: ', @Accion, ', Username: ', @Username, ', Roles Ids: ', @RoleIds);
+
 			EXEC [dbo].[Sp_Insert_AuditLog] @Action = @Accion,
-											@TableName = 'User',
-											@UserId = @Id,
+											@TableName = 'UserRole',
+											@User = @UserCreated,
 											@Details = @AuditDetails;
 
             SET @MESSAGES = 'Usuario creado exitosamente.';
@@ -67,16 +75,23 @@ BEGIN
                 [UserUpdated] = @UserUpdated
             WHERE [Id] = @Id;
 
+			EXEC [dbo].[Sp_Insert_AuditLog] @Action = @Accion,
+								@TableName = 'User',
+								@User = @UserUpdated,
+								@Details = @AuditDetails;
+
             DELETE FROM [dbo].[UserRole]
             WHERE [UserId] = @Id;
 
             INSERT INTO [dbo].[UserRole] ([UserId],[RoleId])
             SELECT @Id, value
             FROM STRING_SPLIT(@RoleIds, ',');
+			
+			SET @AuditDetails = CONCAT('Acción: ', @Accion, ', Username: ', @Username, ', Roles Ids: ', @RoleIds);
 
 			EXEC [dbo].[Sp_Insert_AuditLog] @Action = @Accion,
-											@TableName = 'User',
-											@UserId = @Id,
+											@TableName = 'UserRole',
+											@User = @UserUpdated,
 											@Details = @AuditDetails;
 
             SET @MESSAGES = 'Usuario actualizado exitosamente.';
@@ -97,5 +112,5 @@ BEGIN
         SET @Status = 0;
     END CATCH
 
-    SELECT @MESSAGES AS Messages, @Status AS Status;
+    SELECT @MESSAGES AS Messages, @Status AS Status, CONVERT(NVARCHAR(100),@Id) AS Data;
 END

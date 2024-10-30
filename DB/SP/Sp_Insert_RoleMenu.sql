@@ -4,7 +4,8 @@ GO
 CREATE OR ALTER PROCEDURE [dbo].[Sp_Insert_RoleMenu]
 (
     @RoleId UNIQUEIDENTIFIER,
-    @MenuIds NVARCHAR(MAX)
+    @MenuIds NVARCHAR(MAX),
+	@UserCreated NVARCHAR(100)
 )
 AS
 BEGIN
@@ -40,7 +41,7 @@ BEGIN
         EXEC [dbo].[Sp_Insert_AuditLog]
 										@Action = 'INSERT',
 										@TableName = 'RoleMenu',
-										@UserId = @RoleId,
+										@User = @UserCreated,
 										@Details = @AuditDetails;
 
         SET @MESSAGES = 'Permisos de menú actualizados exitosamente para el rol.';
@@ -55,6 +56,6 @@ BEGIN
         SET @Status = 0;
     END CATCH
 
-    SELECT @MESSAGES AS Messages, @Status AS Status;
+    SELECT @MESSAGES AS Messages, @Status AS Status, NULL AS Data;
 END
 GO

@@ -45,17 +45,15 @@ namespace CentralSecurity.Infrastructure.Repositories
         {
             try
             {
-                var parameters = new List<SqlParameter>()
-                {
-                    new SqlParameter("@Id", roleId),
-                };
+                var parameters = Param(roleId);
 
                 string paramsString = string.Join(",", parameters.Select(x => x.ParameterName));
 
-                string storedProcedureName = Const.StoreProcedure.SP_GET_ALL_ROLES;
+                string storedProcedureName = Const.StoreProcedure.SP_GET_ALL_ROL_ID;
+                var query = $"EXEC {storedProcedureName} {paramsString}";
 
                 var dataResult = _dbContext.Roles
-                      .FromSqlRaw($"EXEC {storedProcedureName}")
+                      .FromSqlRaw(query, parameters.ToArray())
                       .AsEnumerable()
                       .FirstOrDefault();
 
@@ -76,20 +74,20 @@ namespace CentralSecurity.Infrastructure.Repositories
                 string paramsString = string.Join(",", parameters.Select(x => x.ParameterName));
 
                 var storedProcedureName = Const.StoreProcedure.SP_INSERT_UPDATE_ROL;
+                var query = $"EXEC {storedProcedureName} {paramsString}";
 
-                var dataResult = await _dbContext.ResultSp
-                    .FromSqlRaw($"EXEC {storedProcedureName} {paramsString}", parameters.ToArray())
-                    .AsNoTracking()
-                    .ToListAsync();
+                var dataResult = _dbContext.ResultSp
+                    .FromSqlRaw(query, parameters.ToArray())
+                    .AsEnumerable()
+                    .FirstOrDefault();
 
-                return dataResult.FirstOrDefault();
+                return dataResult;
             }
             catch (Exception ex)
             {
                 throw new Exception("Error al crear el rol: " + ex.Message);
             }
         }
-
 
         public async Task<ResultSp> UpdateRoleAsync(RoleDto role)
         {
@@ -100,9 +98,10 @@ namespace CentralSecurity.Infrastructure.Repositories
                 string paramsString = string.Join(",", parameters.Select(x => x.ParameterName));
 
                 string storedProcedureName = Const.StoreProcedure.SP_INSERT_UPDATE_ROL;
+                var query = $"EXEC {storedProcedureName} {paramsString}";
 
                 var dataResult = _dbContext.ResultSp
-                .FromSqlRaw($"EXEC {storedProcedureName}", " ", parameters.ToArray())
+                .FromSqlRaw(query, parameters.ToArray())
                 .AsEnumerable()
                 .FirstOrDefault();
 
@@ -123,7 +122,7 @@ namespace CentralSecurity.Infrastructure.Repositories
         {
             var resultParam = new List<SqlParameter>()
             {
-                new SqlParameter("@Id", input.Id != Guid.Empty ? input.Id : DBNull.Value),
+                new SqlParameter("@Id", input.Id != null && input.Id != Guid.Empty ? (object)input.Id : SqlString.Null),
                 new SqlParameter("@RoleName", input.RoleName),
                 new SqlParameter("@Description", input.Description ?? SqlString.Null),
                 new SqlParameter("@CreatedAt", input.CreatedAt ?? SqlDateTime.Null),
@@ -131,6 +130,16 @@ namespace CentralSecurity.Infrastructure.Repositories
                 new SqlParameter("@UpdatedAt", input.UpdatedAt ?? SqlDateTime.Null),
                 new SqlParameter("@UserUpdated", input.UserUpdated ?? SqlString.Null),
                 new SqlParameter("@Accion", Accion)
+            };
+
+            return resultParam;
+        }
+
+        public List<SqlParameter> Param(Guid id)
+        {
+            var resultParam = new List<SqlParameter>()
+            {
+                new SqlParameter("@Id", id != null && id != Guid.Empty ? (object)id : SqlString.Null)
             };
 
             return resultParam;

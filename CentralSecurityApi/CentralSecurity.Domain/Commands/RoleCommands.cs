@@ -44,7 +44,7 @@ namespace CentralSecurity.Domain.Commands
             {
                 var roleDto = _mapper.Map<RoleDto>(roleType);
                 roleDto.UpdatedAt = DateTime.Now;
-                roleDto.UserUpdated = _auditService.GetCurrentUserName();
+                roleDto.UserUpdated = "Admin";//_auditService.GetCurrentUserName();
                 var result = await _roleRepository.UpdateRoleAsync(roleDto);
 
                 return result;
