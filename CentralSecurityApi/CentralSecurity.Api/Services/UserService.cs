@@ -2,7 +2,6 @@
 using CentralSecurity.Api.Models.Input;
 using CentralSecurity.Api.Models.Output;
 using CentralSecurity.Api.Services.Interfaces;
-using CentralSecurity.Domain.Commands;
 using CentralSecurity.Domain.Commands.Interfaces;
 using CentralSecurity.Domain.Common;
 using CentralSecurity.Domain.Queries.Interfaces;

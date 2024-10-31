@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using CentralSecurity.Domain.Common;
 using CentralSecurity.Domain.Dto;
 using CentralSecurity.Domain.Interfaces.Repositories;
 using CentralSecurity.Infrastructure.Constant;
@@ -21,7 +20,7 @@ namespace CentralSecurity.Infrastructure.Repositories
             _mapper = mapper;
         }
 
-        public async Task<ResponseResult<UserLoginDto>> GetUserByUsername(LoginDto input)
+        public async Task<UserSpDto> GetUserByUsername(LoginDto input)
         {
             try
             {
@@ -30,23 +29,18 @@ namespace CentralSecurity.Infrastructure.Repositories
                 string paramsString = string.Join(",", parameters.Select(x => x.ParameterName));
 
                 string storedProcedureName = Const.StoreProcedure.SP_GET_ALL_USER_LOGIN;
+                var query = $"EXEC {storedProcedureName} {paramsString}";
 
-                var dataResult = await _dbContext.Login
-                  .FromSqlRaw($"EXEC {storedProcedureName} @UserName", parameters.ToArray())
-                  .AsNoTracking()
-                  .ToListAsync();
+                var dataResult = _dbContext.UserSp
+                  .FromSqlRaw(query, parameters.ToArray())
+                  .AsEnumerable()
+                  .FirstOrDefault();
 
-                var user = dataResult.FirstOrDefault();
-                if (user == null)
-                {
-                    return new ResponseResult<UserLoginDto>("No existe usuario", false);
-                }
-
-                return new ResponseResult<UserLoginDto>(user);
+                return dataResult;
             }
             catch (Exception ex)
             {
-                return new ResponseResult<UserLoginDto>($"Error al obtener usuario: {ex.Message}", false);
+                throw new Exception("Error al obtener el usuario " + ex.Message);
             }
         }
 

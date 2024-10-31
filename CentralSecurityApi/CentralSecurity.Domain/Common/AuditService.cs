@@ -7,7 +7,7 @@ namespace CentralSecurity.Domain.Common
 {
     public class AuditService : IAuditService
     {
-        private readonly IHttpContextAccessor _httpContextAccessor;
+        public readonly IHttpContextAccessor _httpContextAccessor;
 
         public AuditService(IHttpContextAccessor httpContextAccessor)
         {

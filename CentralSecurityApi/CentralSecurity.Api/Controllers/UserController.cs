@@ -11,7 +11,7 @@ namespace CentralSecurity.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    //[Authorize]
+    [Authorize]
     public class UserController: ControllerBase
     {
         private IUserService _userService;

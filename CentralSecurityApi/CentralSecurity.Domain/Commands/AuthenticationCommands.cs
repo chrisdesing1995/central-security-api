@@ -25,33 +25,32 @@ namespace CentralSecurity.Domain.Commands
             _authenticationRepository = authenticationRepository;
         }
 
-        public async Task<ResponseResult<UserLoginType>> AuthenticateLogin(LoginType commands)
+        public async Task<UserType> AuthenticateLogin(LoginType loginType)
         {
             try
             {
-                var loginDto = _mapper.Map<LoginDto>(commands);
-                var _ = await _authenticationRepository.GetUserByUsername(loginDto);
-                var userDto = _.Result;
-                var verfiPassword = CommonService.ConverToDecrypt(userDto.Password) == commands.Password;
+                var loginDto = _mapper.Map<LoginDto>(loginType);
+                var userDto = await _authenticationRepository.GetUserByUsername(loginDto);
+             
+                var verfiPassword = CommonService.ConverToDecrypt(userDto.Password) == loginType.Password;
 
                 if (!verfiPassword)
                 {
-                    return new ResponseResult<UserLoginType>("Contraseña incorrecta", false);
+                    throw new Exception("Contraseña incorrecta");
                 }
                 string jwtToken = GenerateToken(userDto);
-                userDto.Token = jwtToken;
-
-                var userQuery = _mapper.Map<UserLoginType>(userDto);
-
-                return new ResponseResult<UserLoginType>(userQuery);
+                
+                var usertype = _mapper.Map<UserType>(userDto);
+                usertype.Token = jwtToken;
+                return usertype;
 
             }
             catch (Exception ex) {
-                return new ResponseResult<UserLoginType>($"Error al obtener usuario: {ex.Message}", false);
+                throw new Exception("Error al autenticarse " + ex.Message);
             }
         }
 
-        private string GenerateToken(UserLoginDto data)
+        private string GenerateToken(UserSpDto data)
         {
             var claims = new[]
             {
@@ -66,6 +65,8 @@ namespace CentralSecurity.Domain.Commands
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha384);
 
             var securityToken = new JwtSecurityToken(
+                issuer: _configuration["Jwt:Issuer"],
+                audience: _configuration["Jwt:Audience"],
                 claims: claims,
                 expires: DateTime.Now.AddHours(12),
                 signingCredentials: creds);

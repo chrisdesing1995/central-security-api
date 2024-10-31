@@ -10,7 +10,7 @@ namespace CentralSecurity.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    //[Authorize]
+    [Authorize]
     public class RoleController: ControllerBase
     {
         private IRoleService _roleService;

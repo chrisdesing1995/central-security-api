@@ -33,12 +33,13 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
 {
     options.TokenValidationParameters = new TokenValidationParameters
     {
-        ValidateIssuerSigningKey = true,
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(s: builder.Configuration["Jwt:key"])),
         ValidateIssuer = true,
-        ValidIssuer = builder.Configuration["Jwt:Issuer"],
         ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = builder.Configuration["Jwt:Issuer"],
         ValidAudience = builder.Configuration["Jwt:Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:key"]))
     };
 });
 
@@ -68,15 +69,20 @@ builder.Services.AddCors(options =>
 #region Module Security
 builder.Services.AddScoped<IAuditService, AuditService>();
 
-builder.Services.AddScoped<IRoleService, RoleService>();
-builder.Services.AddScoped<IRoleCommands, RoleCommands>();
-builder.Services.AddScoped<IRoleQueries, RoleQueries>();
-builder.Services.AddScoped<IRoleRepository, RoleRepository>();
+builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
+builder.Services.AddScoped<IAuthenticationCommands, AuthenticationCommands>();
+builder.Services.AddScoped<IAuthenticationRepository, AuthenticationRepository>();
 
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserCommands, UserCommands>();
 builder.Services.AddScoped<IUserQueries, UserQueries>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+
+builder.Services.AddScoped<IRoleService, RoleService>();
+builder.Services.AddScoped<IRoleCommands, RoleCommands>();
+builder.Services.AddScoped<IRoleQueries, RoleQueries>();
+builder.Services.AddScoped<IRoleRepository, RoleRepository>();
+
 #endregion
 
 var app = builder.Build();

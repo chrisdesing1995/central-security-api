@@ -11,6 +11,9 @@ namespace CentralSecurity.Api.Models.Mapping
         public MappingProfileApi()
         {
             #region Mapper Output and Type
+            CreateMap<LoginOutput, UserType>();
+            CreateMap<UserType, LoginOutput>();
+
             CreateMap<UserOutput, UserType>();
             CreateMap<UserType, UserOutput>();
 
@@ -19,6 +22,9 @@ namespace CentralSecurity.Api.Models.Mapping
             #endregion
 
             #region Mapper Input and Type
+            CreateMap<LoginInput, LoginType>();
+            CreateMap<LoginType, LoginInput>();
+
             CreateMap<UserInput, UserType>();
             CreateMap<UserType, UserInput>();
 

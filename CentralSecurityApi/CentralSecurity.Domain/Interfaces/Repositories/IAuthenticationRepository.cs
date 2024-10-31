@@ -5,6 +5,6 @@ namespace CentralSecurity.Domain.Interfaces.Repositories
 {
     public interface IAuthenticationRepository
     {
-        Task<ResponseResult<UserLoginDto>> GetUserByUsername(LoginDto input);
+        Task<UserSpDto> GetUserByUsername(LoginDto input);
     }
 }
