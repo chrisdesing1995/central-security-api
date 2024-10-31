@@ -27,7 +27,7 @@ namespace CentralSecurity.Domain.Commands
             {
                 var userDto = _mapper.Map<UserDto>(userType);
                 userDto.CreatedAt = DateTime.Now;
-                userDto.UserCreated = "Admin";//_auditService.GetCurrentUserName();
+                userDto.UserCreated = _auditService.GetCurrentUserName();
                 userDto.Password = CommonService.ConverToEncrypt(userType.Password ?? "");
                 var result = await _userRepository.CreateUserAsync(userDto);
 
@@ -46,7 +46,7 @@ namespace CentralSecurity.Domain.Commands
             {
                 var userDto = _mapper.Map<UserDto>(userType);
                 userDto.UpdatedAt = DateTime.Now;
-                userDto.UserUpdated = "Admin";//_auditService.GetCurrentUserName();
+                userDto.UserUpdated = _auditService.GetCurrentUserName();
                 var result = await _userRepository.UpdateUserAsync(userDto);
 
                 return result;

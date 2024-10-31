@@ -6,7 +6,6 @@ using CentralSecurity.Domain.Commands.Interfaces;
 using CentralSecurity.Domain.Common;
 using CentralSecurity.Domain.Queries.Interfaces;
 using CentralSecurity.Domain.Types;
-using System.Data;
 
 namespace CentralSecurity.Api.Services
 {

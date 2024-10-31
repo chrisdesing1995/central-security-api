@@ -1,8 +1,10 @@
 USE [MarketMaxDB]
 GO
 
-CREATE OR ALTER PROCEDURE [dbo].[Sp_Get_Menus_By_User]
-    @UserId UNIQUEIDENTIFIER
+CREATE OR ALTER PROCEDURE [dbo].[Sp_Get_Menus_By_Id]
+(
+	@Id UNIQUEIDENTIFIER = NULL
+)
 AS
 BEGIN
     SET NOCOUNT ON;
@@ -12,7 +14,6 @@ BEGIN
 		INNER JOIN UserRole ur ON u.Id = ur.UserId
 		INNER JOIN RoleMenu rm ON ur.RoleId = rm.RoleId
 		INNER JOIN [Menu] m ON rm.MenuId = m.Id
-    WHERE u.Id = @UserId
-      AND m.IsActive = 'A'
+    WHERE m.IsActive = 'A' AND m.Id = @Id
     ORDER BY m.SortOrder;
 END;

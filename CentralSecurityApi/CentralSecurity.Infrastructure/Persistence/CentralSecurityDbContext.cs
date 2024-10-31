@@ -25,6 +25,7 @@ namespace CentralSecurity.Infrastructure.Persistence
         public DbSet<ResultSp> ResultSp { get; set; }
         public DbSet<AuditLog> AuditLogs { get; set; }
         public DbSet<UserSpDto> UserSp { get; set; }
+        public DbSet<MenuSpDto> MenuSp { get; set; }
         #endregion
 
         public DbSet<UserLoginDto> Login { get; set; }
@@ -36,6 +37,7 @@ namespace CentralSecurity.Infrastructure.Persistence
             modelBuilder.Entity<ResultSp>().HasNoKey();
             modelBuilder.Entity<UserLoginDto>().HasNoKey();
             modelBuilder.Entity<UserSpDto>().HasNoKey();
+            modelBuilder.Entity<MenuSpDto>().HasNoKey();
         }
     }
 }

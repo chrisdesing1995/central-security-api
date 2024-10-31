@@ -6,7 +6,7 @@ using CentralSecurity.Domain.Types;
 
 namespace CentralSecurity.Domain.Queries
 {
-    public class UserQueries:IUserQueries
+    public class UserQueries : IUserQueries
     {
         private readonly IMapper _mapper;
         private readonly IUserRepository _userRepository;
