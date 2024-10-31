@@ -8,7 +8,5 @@ namespace CentralSecurity.Domain.Entities
         public string Email { get; set; }
         public string IsActive { get; set; }
 
-        // Relaciones
-        //public ICollection<UserRole> UserRoles { get; set; }
     }
 }

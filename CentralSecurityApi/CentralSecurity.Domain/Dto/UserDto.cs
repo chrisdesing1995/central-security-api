@@ -7,6 +7,7 @@ namespace CentralSecurity.Domain.Dto
         public string Password { get; set; }
         public string Email { get; set; }
         public string IsActive { get; set; }
-        public string? RoleIds { get; set; }
+        public string RoleIds { get; set; }
+        public string? RoleNames { get; set; }
     }
 }

@@ -5,8 +5,6 @@ using CentralSecurity.Api.Services.Interfaces;
 using CentralSecurity.Domain.Commands;
 using CentralSecurity.Domain.Commands.Interfaces;
 using CentralSecurity.Domain.Common;
-using CentralSecurity.Domain.Entities;
-using CentralSecurity.Domain.Queries;
 using CentralSecurity.Domain.Queries.Interfaces;
 using CentralSecurity.Domain.Types;
 using System.Data;

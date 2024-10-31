@@ -46,15 +46,18 @@ namespace CentralSecurity.Infrastructure.Repositories
             try
             {
                 var parameters = Param(userId);
+                string paramsString = string.Join(",", parameters.Select(x => x.ParameterName));
+
                 string storedProcedureName = Const.StoreProcedure.SP_GET_ALL_USER_ID;
 
-                var dataResult = _dbContext.UserSp
-                      .FromSqlRaw($"EXEC {storedProcedureName}")
-                      .AsEnumerable()
-                      .ToList();
+                var query = $"EXEC {storedProcedureName} {paramsString}";
 
-                var user = _mapper.Map<UserSpDto>(dataResult);
-                return user;
+                var dataResult = _dbContext.UserSp
+                      .FromSqlRaw(query, parameters.ToArray())
+                      .AsEnumerable()
+                      .FirstOrDefault();
+
+                return dataResult;
             }
             catch (Exception ex)
             {

@@ -17,8 +17,6 @@ namespace CentralSecurity.Infrastructure.Mapping
             CreateMap<User, UserDto>();
             CreateMap<UserDto, User>();
 
-            CreateMap<User, UserSpDto>();
-            CreateMap<UserSpDto, User>();
             #endregion
 
             #region Mapper Dto and type
@@ -27,6 +25,9 @@ namespace CentralSecurity.Infrastructure.Mapping
 
             CreateMap<UserLoginDto, UserLoginType>();
             CreateMap<UserLoginType, UserLoginDto>();
+
+            CreateMap<UserSpDto, UserType>();
+            CreateMap<UserType, UserSpDto>();
 
             CreateMap<UserDto, UserType>();
             CreateMap<UserType, UserDto>();

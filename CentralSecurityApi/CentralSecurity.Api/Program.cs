@@ -13,6 +13,7 @@ using CentralSecurity.Domain.Interfaces.Repositories;
 using CentralSecurity.Infrastructure.Repositories;
 using CentralSecurity.Infrastructure.Mapping;
 using CentralSecurity.Api.Models.Mapping;
+using CentralSecurity.Domain.Common;
 
 var builder = WebApplication.CreateBuilder(args);
 var corsOrigin = "corsOrigin";
@@ -65,6 +66,8 @@ builder.Services.AddCors(options =>
 
 // Add Repositories.
 #region Module Security
+builder.Services.AddScoped<IAuditService, AuditService>();
+
 builder.Services.AddScoped<IRoleService, RoleService>();
 builder.Services.AddScoped<IRoleCommands, RoleCommands>();
 builder.Services.AddScoped<IRoleQueries, RoleQueries>();
