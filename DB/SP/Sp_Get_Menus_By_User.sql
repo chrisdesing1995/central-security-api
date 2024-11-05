@@ -1,7 +1,7 @@
 USE [MarketMaxDB]
 GO
 
-CREATE OR ALTER PROCEDURE [dbo].[Sp_Get_Menu_By_User]
+CREATE OR ALTER PROCEDURE [dbo].[Sp_Get_Menus_By_User]
     @UserId UNIQUEIDENTIFIER
 AS
 BEGIN

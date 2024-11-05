@@ -19,6 +19,9 @@ namespace CentralSecurity.Api.Models.Mapping
 
             CreateMap<RoleOutput, RoleType>();
             CreateMap<RoleType, RoleOutput>();
+
+            CreateMap<MenuOutput, MenuType>();
+            CreateMap<MenuType, MenuOutput>();
             #endregion
 
             #region Mapper Input and Type
@@ -30,6 +33,9 @@ namespace CentralSecurity.Api.Models.Mapping
 
             CreateMap<RoleInput, RoleType>();
             CreateMap<RoleType, RoleInput>();
+
+            CreateMap<MenuInput, MenuType>();
+            CreateMap<MenuType, MenuInput>();
             #endregion
 
         }

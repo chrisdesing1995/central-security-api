@@ -1,19 +1,19 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using CentralSecurity.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
-using CentralSecurity.Api.Services.Interfaces;
+using CentralSecurity.Api.Models.Mapping;
 using CentralSecurity.Api.Services;
-using CentralSecurity.Domain.Commands.Interfaces;
+using CentralSecurity.Api.Services.Interfaces;
+using CentralSecurity.Domain.Common;
 using CentralSecurity.Domain.Commands;
-using CentralSecurity.Domain.Queries.Interfaces;
+using CentralSecurity.Domain.Commands.Interfaces;
 using CentralSecurity.Domain.Queries;
+using CentralSecurity.Domain.Queries.Interfaces;
 using CentralSecurity.Domain.Interfaces.Repositories;
+using CentralSecurity.Infrastructure.Persistence;
 using CentralSecurity.Infrastructure.Repositories;
 using CentralSecurity.Infrastructure.Mapping;
-using CentralSecurity.Api.Models.Mapping;
-using CentralSecurity.Domain.Common;
 
 var builder = WebApplication.CreateBuilder(args);
 var corsOrigin = "corsOrigin";
@@ -82,6 +82,11 @@ builder.Services.AddScoped<IRoleService, RoleService>();
 builder.Services.AddScoped<IRoleCommands, RoleCommands>();
 builder.Services.AddScoped<IRoleQueries, RoleQueries>();
 builder.Services.AddScoped<IRoleRepository, RoleRepository>();
+
+builder.Services.AddScoped<IMenuService, MenuService>();
+builder.Services.AddScoped<IMenuCommands, MenuCommands>();
+builder.Services.AddScoped<IMenuQueries, MenuQueries>();
+builder.Services.AddScoped<IMenuRepository, MenuRepository>();
 
 #endregion
 
