@@ -2,7 +2,6 @@
 using AutoMapper;
 using CentralSecurity.Domain.Common;
 using CentralSecurity.Domain.Dto;
-using CentralSecurity.Domain.Entities;
 using CentralSecurity.Domain.Interfaces.Repositories;
 using CentralSecurity.Infrastructure.Constant;
 using CentralSecurity.Infrastructure.Persistence;

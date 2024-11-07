@@ -30,7 +30,7 @@ namespace CentralSecurity.Infrastructure.Constant
 
             public const string SP_GET_ALL_MENU = "Sp_Get_Menus";
             public const string SP_GET_ALL_MENU_ID = "Sp_Get_Menus_By_Id";
-            public const string SP_GET_ALL_MENU_USER = "Sp_Get_Menus_User";
+            public const string SP_GET_ALL_MENU_USER = "Sp_Get_Menus_By_User";
             public const string SP_INSERT_UPDATE_MENU = "Sp_Insert_Update_Menu";
 
             public const string SP_GET_ALL_USERS = "Sp_Get_Users";
@@ -40,6 +40,8 @@ namespace CentralSecurity.Infrastructure.Constant
             public const string SP_GET_ALL_ROLES = "Sp_Get_Roles";
             public const string SP_GET_ALL_ROL_ID = "Sp_Get_Roles_By_Id";
             public const string SP_INSERT_UPDATE_ROL = "Sp_Insert_Update_Role";
+
+            public const string SP_INSERT_ROLMENU = "Sp_Insert_RoleMenu";
 
         }
     }

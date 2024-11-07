@@ -50,7 +50,7 @@ namespace CentralSecurity.Domain.Queries
         {
             try
             {
-                var menu = await _menuRepository.GetMenuByIdAsync(userId);
+                var menu = await _menuRepository.GetMenuByUserAsync(userId);
 
                 return _mapper.Map<IEnumerable<MenuType>>(menu);
             }

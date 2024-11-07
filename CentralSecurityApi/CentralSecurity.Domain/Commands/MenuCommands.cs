@@ -1,10 +1,11 @@
 ﻿using AutoMapper;
+using CentralSecurity.Domain.Commands.Interfaces;
 using CentralSecurity.Domain.Common;
 using CentralSecurity.Domain.Dto;
 using CentralSecurity.Domain.Interfaces.Repositories;
 using CentralSecurity.Domain.Types;
 
-namespace CentralSecurity.Domain.Commands.Interfaces
+namespace CentralSecurity.Domain.Commands
 {
     public class MenuCommands : IMenuCommands
     {

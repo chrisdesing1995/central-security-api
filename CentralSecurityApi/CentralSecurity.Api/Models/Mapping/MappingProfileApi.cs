@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using CentralSecurity.Api.Models.Input;
 using CentralSecurity.Api.Models.Output;
-using CentralSecurity.Domain.Dto;
 using CentralSecurity.Domain.Types;
 
 namespace CentralSecurity.Api.Models.Mapping
@@ -36,6 +35,9 @@ namespace CentralSecurity.Api.Models.Mapping
 
             CreateMap<MenuInput, MenuType>();
             CreateMap<MenuType, MenuInput>();
+
+            CreateMap<RoleMenuInput, RoleMenuType>();
+            CreateMap<RoleMenuType, RoleMenuInput>();
             #endregion
 
         }

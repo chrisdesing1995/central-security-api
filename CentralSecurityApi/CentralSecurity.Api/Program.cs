@@ -88,6 +88,10 @@ builder.Services.AddScoped<IMenuCommands, MenuCommands>();
 builder.Services.AddScoped<IMenuQueries, MenuQueries>();
 builder.Services.AddScoped<IMenuRepository, MenuRepository>();
 
+builder.Services.AddScoped<IPermisoService, PermisoService>();
+builder.Services.AddScoped<IPermisoCommands, PermisoCommands>();
+builder.Services.AddScoped<IPermisoRepository, PermisoRepository>();
+
 #endregion
 
 var app = builder.Build();

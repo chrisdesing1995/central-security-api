@@ -4,7 +4,7 @@ GO
 CREATE OR ALTER PROCEDURE [dbo].[Sp_Insert_RoleMenu]
 (
     @RoleId UNIQUEIDENTIFIER,
-    @MenuIds NVARCHAR(MAX),
+    @MenuIds NVARCHAR(MAX) = NULL,
 	@UserCreated NVARCHAR(100)
 )
 AS
@@ -22,7 +22,7 @@ BEGIN
         DECLARE @Pos INT;
         DECLARE @Delimiter CHAR(1) = ',';
 
-        SET @MenuIds = LTRIM(RTRIM(@MenuIds)) + @Delimiter;
+        SET @MenuIds = LTRIM(RTRIM(ISNULL(@MenuIds,''))) + @Delimiter;
         SET @Pos = CHARINDEX(@Delimiter, @MenuIds, 1);
 
         WHILE @Pos > 0

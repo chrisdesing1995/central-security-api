@@ -1,6 +1,5 @@
 ﻿using CentralSecurity.Api.Models.Input;
 using CentralSecurity.Api.Models.Output;
-using CentralSecurity.Api.Services;
 using CentralSecurity.Api.Services.Interfaces;
 using CentralSecurity.Domain.Common;
 using Microsoft.AspNetCore.Authorization;
