@@ -25,7 +25,7 @@ namespace CentralSecurity.Domain.Commands
             _authenticationRepository = authenticationRepository;
         }
 
-        public async Task<UserType> AuthenticateLogin(LoginType loginType)
+        public async Task<UserLoginType> AuthenticateLogin(LoginType loginType)
         {
             try
             {
@@ -40,7 +40,7 @@ namespace CentralSecurity.Domain.Commands
                 }
                 string jwtToken = GenerateToken(userDto);
                 
-                var usertype = _mapper.Map<UserType>(userDto);
+                var usertype = _mapper.Map<UserLoginType>(userDto);
                 usertype.Token = jwtToken;
                 return usertype;
 
@@ -50,7 +50,7 @@ namespace CentralSecurity.Domain.Commands
             }
         }
 
-        private string GenerateToken(UserSpDto data)
+        private string GenerateToken(UserLoginDto data)
         {
             var claims = new[]
             {

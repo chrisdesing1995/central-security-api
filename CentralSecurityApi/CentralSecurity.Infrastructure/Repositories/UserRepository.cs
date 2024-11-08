@@ -123,19 +123,20 @@ namespace CentralSecurity.Infrastructure.Repositories
             {
                 new SqlParameter("@Id", input.Id != null && input.Id != Guid.Empty ? (object)input.Id : SqlString.Null),
                 new SqlParameter("@RoleIds", input.RoleIds),
+                new SqlParameter("@Name", input.Name),
+                new SqlParameter("@SurName", input.SurName),
                 new SqlParameter("@Username", input.Username),
-                new SqlParameter("@Pasword", input.Password),
-                new SqlParameter("@Email", input.Email),
+                new SqlParameter("@Password", input.Password),
+                new SqlParameter("@Phone", input.Phone ?? SqlString.Null),
                 new SqlParameter("@IsActive", input.IsActive),
-                new SqlParameter("@CreatedAt", input.CreatedAt ?? SqlDateTime.Null),
                 new SqlParameter("@UserCreated", input.UserCreated ?? SqlString.Null),
-                new SqlParameter("@UpdatedAt", input.UpdatedAt ?? SqlDateTime.Null),
                 new SqlParameter("@UserUpdated", input.UserUpdated ?? SqlString.Null),
                 new SqlParameter("@Accion", Accion)
             };
 
             return resultParam;
         }
+
 
         public List<SqlParameter> Param(Guid id)
         {

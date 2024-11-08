@@ -11,9 +11,12 @@ BEGIN
 
 	SELECT 
 		U.[Id],
+		U.[Name],
+		[SurName],
 		[Username],
 		[Password],
 		[Email],
+		[Phone],
 		[IsActive],
 		STRING_AGG(CONVERT(NVARCHAR(36), R.[Id]), ',') AS RoleIds,
 		STRING_AGG(R.[RoleName], ',') AS RoleNames
@@ -21,6 +24,7 @@ BEGIN
 	INNER JOIN [dbo].[UserRole] UR ON U.Id = UR.UserId
 	INNER JOIN [dbo].[Role] R ON UR.RoleId = R.Id
 	WHERE U.[Id] = @Id
-	GROUP BY U.[Id], [Username], [Password], [Email], [IsActive]
+	GROUP BY U.[Id], [Username], [Password], [Email], [IsActive],
+	U.[Name], [SurName],[Phone]
 
 END;

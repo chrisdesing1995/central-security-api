@@ -1,0 +1,13 @@
+USE [MarketMaxDB]
+GO
+
+CREATE TYPE dbo.GeneralParameterDetailDto AS TABLE
+(
+    Id UNIQUEIDENTIFIER NULL,
+    Code NVARCHAR(10) NOT NULL,
+    Value1 NVARCHAR(100) NOT NULL,
+    Value2 NVARCHAR(100) NULL,
+    Value3 NVARCHAR(100) NULL,
+    Value4 NVARCHAR(100) NULL,
+    Value5 NVARCHAR(100) NULL
+);

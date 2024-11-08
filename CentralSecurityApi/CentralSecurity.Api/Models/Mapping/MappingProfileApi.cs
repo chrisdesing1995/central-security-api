@@ -10,8 +10,8 @@ namespace CentralSecurity.Api.Models.Mapping
         public MappingProfileApi()
         {
             #region Mapper Output and Type
-            CreateMap<LoginOutput, UserType>();
-            CreateMap<UserType, LoginOutput>();
+            CreateMap<LoginOutput, UserLoginType>();
+            CreateMap<UserLoginType, LoginOutput>();
 
             CreateMap<UserOutput, UserType>();
             CreateMap<UserType, UserOutput>();

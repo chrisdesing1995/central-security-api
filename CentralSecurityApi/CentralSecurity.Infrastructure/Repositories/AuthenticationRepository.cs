@@ -20,7 +20,7 @@ namespace CentralSecurity.Infrastructure.Repositories
             _mapper = mapper;
         }
 
-        public async Task<UserSpDto> GetUserByUsername(LoginDto input)
+        public async Task<UserLoginDto> GetUserByUsername(LoginDto input)
         {
             try
             {
@@ -31,7 +31,7 @@ namespace CentralSecurity.Infrastructure.Repositories
                 string storedProcedureName = Const.StoreProcedure.SP_GET_ALL_USER_LOGIN;
                 var query = $"EXEC {storedProcedureName} {paramsString}";
 
-                var dataResult = _dbContext.UserSp
+                var dataResult = _dbContext.Login
                   .FromSqlRaw(query, parameters.ToArray())
                   .AsEnumerable()
                   .FirstOrDefault();

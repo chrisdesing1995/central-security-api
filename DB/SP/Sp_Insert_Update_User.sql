@@ -4,13 +4,14 @@ CREATE OR ALTER PROCEDURE [dbo].[Sp_Insert_Update_User]
 (
     @Id UNIQUEIDENTIFIER = NULL,
     @RoleIds NVARCHAR(MAX),
+	@Name NVARCHAR(200),
+	@SurName NVARCHAR(200),
     @Username NVARCHAR(50),
     @Password NVARCHAR(200),
     @Email NVARCHAR(100),
+	@Phone  NVARCHAR(100) = NULL,
     @IsActive NVARCHAR(1),
-    @CreatedAt DATETIME2(7) = NULL,
     @UserCreated NVARCHAR(100) = NULL,
-    @UpdatedAt DATETIME2(7) = NULL,
     @UserUpdated NVARCHAR(100) = NULL,
     @Accion NVARCHAR(20)
 )
@@ -41,8 +42,8 @@ BEGIN
         BEGIN
             SET @Id = NEWID();
 
-            INSERT INTO [dbo].[User] ([Id],[Username],[Password],[Email],[IsActive],[CreatedAt],[UserCreated],[UpdatedAt],[UserUpdated])
-            VALUES (@Id, @Username, @Password, @Email, @IsActive, @CreatedAt, @UserCreated, NULL, NULL);
+            INSERT INTO [dbo].[User] ([Id],[Name],[SurName],[Username],[Password],[Email],[Phone],[IsActive],[CreatedAt],[UserCreated],[UpdatedAt],[UserUpdated])
+			VALUES (@Id, @Name, @SurName, @Username, @Password, @Email, @Phone, @IsActive, GETDATE(), @UserCreated, NULL, NULL);
 
 			
 			EXEC [dbo].[Sp_Insert_AuditLog] @Action = @Accion,
@@ -68,10 +69,13 @@ BEGIN
         BEGIN
             UPDATE [dbo].[User]
             SET [Username] = @Username,
+				[Name] = @Name,
+				[SurName] = @SurName,
                 [Password] = @Password,
                 [Email] = @Email,
+				[Phone] = @Phone,
                 [IsActive] = @IsActive,
-                [UpdatedAt] = @UpdatedAt,
+                [UpdatedAt] =  GETDATE(),
                 [UserUpdated] = @UserUpdated
             WHERE [Id] = @Id;
 

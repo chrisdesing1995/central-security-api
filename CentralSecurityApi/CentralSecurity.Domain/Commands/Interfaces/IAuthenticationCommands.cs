@@ -4,6 +4,6 @@ namespace CentralSecurity.Domain.Commands.Interfaces
 {
     public interface IAuthenticationCommands
     {
-        Task<UserType> AuthenticateLogin(LoginType loginType);
+        Task<UserLoginType> AuthenticateLogin(LoginType loginType);
     }
 }
