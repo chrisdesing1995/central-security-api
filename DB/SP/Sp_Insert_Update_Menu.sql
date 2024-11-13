@@ -10,9 +10,7 @@ CREATE OR ALTER PROCEDURE [dbo].[Sp_Insert_Update_Menu]
     @Icon NVARCHAR(100),
     @SortOrder INT,
     @IsActive NVARCHAR(1),
-    @CreatedAt DATETIME2(7) = NULL,
     @UserCreated NVARCHAR(100) = NULL,
-    @UpdatedAt DATETIME2(7) = NULL,
     @UserUpdated NVARCHAR(100) = NULL,
     @Accion NVARCHAR(20)
 )
@@ -44,7 +42,7 @@ BEGIN
             SET @Id = NEWID();
 
             INSERT INTO [dbo].[Menu] ([Id], [MenuName], [ParentId], [Url], [Icon], [SortOrder], [IsActive], [CreatedAt], [UserCreated], [UpdatedAt], [UserUpdated])
-            VALUES (@Id, @MenuName, @ParentId, @Url, @Icon, @SortOrder, @IsActive, @CreatedAt, @UserCreated, NULL, NULL);
+            VALUES (@Id, @MenuName, @ParentId, @Url, @Icon, @SortOrder, @IsActive, GETDATE(), @UserCreated, NULL, NULL);
 
             EXEC [dbo].[Sp_Insert_AuditLog]
 											@Action = @Accion,
@@ -64,7 +62,7 @@ BEGIN
                 [Icon] = @Icon,
                 [SortOrder] = @SortOrder,
                 [IsActive] = @IsActive,
-                [UpdatedAt] = @UpdatedAt,
+                [UpdatedAt] = GETDATE(),
                 [UserUpdated] = @UserUpdated
             WHERE [Id] = @Id;
 

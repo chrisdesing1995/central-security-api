@@ -14,12 +14,10 @@ namespace CentralSecurity.Infrastructure.Repositories
     public class UserRepository : IUserRepository
     {
         private readonly CentralSecurityDbContext _dbContext;
-        private readonly IMapper _mapper;
 
-        public UserRepository(CentralSecurityDbContext dbContext, IMapper mapper)
+        public UserRepository(CentralSecurityDbContext dbContext)
         {
             _dbContext = dbContext;
-            _mapper = mapper;
         }
         public async Task<IEnumerable<UserSpDto>> GetAllUserAsync()
         {
@@ -127,6 +125,7 @@ namespace CentralSecurity.Infrastructure.Repositories
                 new SqlParameter("@SurName", input.SurName),
                 new SqlParameter("@Username", input.Username),
                 new SqlParameter("@Password", input.Password),
+                new SqlParameter("@Email", input.Email),
                 new SqlParameter("@Phone", input.Phone ?? SqlString.Null),
                 new SqlParameter("@IsActive", input.IsActive),
                 new SqlParameter("@UserCreated", input.UserCreated ?? SqlString.Null),

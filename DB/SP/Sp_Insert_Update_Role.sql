@@ -6,9 +6,7 @@ CREATE OR ALTER PROCEDURE [dbo].[Sp_Insert_Update_Role]
     @Id UNIQUEIDENTIFIER = NULL,
     @RoleName NVARCHAR(100),
     @Description NVARCHAR(500) = NULL,
-    @CreatedAt DATETIME = NULL,
     @UserCreated NVARCHAR(100) = NULL,
-    @UpdatedAt DATETIME = NULL,
     @UserUpdated NVARCHAR(100) = NULL,
     @Accion NVARCHAR(20)
 )
@@ -40,7 +38,7 @@ BEGIN
             SET @Id = NEWID();
 
             INSERT INTO [dbo].[Role] ([Id], [RoleName], [Description], [CreatedAt], [UserCreated], [UpdatedAt], [UserUpdated])
-            VALUES (@Id, @RoleName, @Description, @CreatedAt, @UserCreated, NULL, NULL);
+            VALUES (@Id, @RoleName, @Description, GETDATE(), @UserCreated, NULL, NULL);
 
             EXEC [dbo].[Sp_Insert_AuditLog]
 											@Action = @Accion,
@@ -56,7 +54,7 @@ BEGIN
             UPDATE [dbo].[Role]
             SET [RoleName] = @RoleName,
                 [Description] = @Description,
-                [UpdatedAt] = @UpdatedAt,
+                [UpdatedAt] = GETDATE(),
                 [UserUpdated] = @UserUpdated
             WHERE [Id] = @Id;
 

@@ -125,9 +125,7 @@ namespace CentralSecurity.Infrastructure.Repositories
                 new SqlParameter("@Id", input.Id != null && input.Id != Guid.Empty ? (object)input.Id : SqlString.Null),
                 new SqlParameter("@RoleName", input.RoleName),
                 new SqlParameter("@Description", input.Description ?? SqlString.Null),
-                new SqlParameter("@CreatedAt", input.CreatedAt ?? SqlDateTime.Null),
                 new SqlParameter("@UserCreated", input.UserCreated ?? SqlString.Null),
-                new SqlParameter("@UpdatedAt", input.UpdatedAt ?? SqlDateTime.Null),
                 new SqlParameter("@UserUpdated", input.UserUpdated ?? SqlString.Null),
                 new SqlParameter("@Accion", Accion)
             };

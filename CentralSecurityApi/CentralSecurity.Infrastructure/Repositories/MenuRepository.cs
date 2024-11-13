@@ -153,9 +153,7 @@ namespace CentralSecurity.Infrastructure.Repositories
                 new SqlParameter("@Icon", input.Icon),
                 new SqlParameter("@SortOrder", input.SortOrder),
                 new SqlParameter("@IsActive", input.IsActive),
-                new SqlParameter("@CreatedAt", input.CreatedAt ?? SqlDateTime.Null),
                 new SqlParameter("@UserCreated", input.UserCreated ?? SqlString.Null),
-                new SqlParameter("@UpdatedAt", input.UpdatedAt ?? SqlDateTime.Null),
                 new SqlParameter("@UserUpdated", input.UserUpdated ?? SqlString.Null),
                 new SqlParameter("@Accion", Accion)
             };
