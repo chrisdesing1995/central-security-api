@@ -43,6 +43,12 @@ namespace CentralSecurity.Infrastructure.Constant
 
             public const string SP_INSERT_ROLMENU = "Sp_Insert_RoleMenu";
 
+            public const string SP_GET_ALL_GENERAL_PARAMETERS = "Sp_Get_GeneralParameters";
+            public const string SP_GET_ALL_GENERAL_PARAMETER_ID = "Sp_Get_GeneralParameter_By_Id";
+            public const string SP_GET_ALL_GENERAL_PARAMETER_DETAIL_CODE = "Sp_Get_GeneralParameterDetail_By_Code";
+            public const string SP_INSERT_UPDATE_GENERAL_PARAMETERS = "Sp_Insert_Update_GeneralParameter";
+
+
         }
     }
 }

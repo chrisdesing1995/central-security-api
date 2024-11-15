@@ -1,7 +1,7 @@
-﻿
-using AutoMapper;
+﻿using AutoMapper;
 using CentralSecurity.Domain.Common;
 using CentralSecurity.Domain.Dto;
+using CentralSecurity.Domain.Entities;
 using CentralSecurity.Domain.Interfaces.Repositories;
 using CentralSecurity.Infrastructure.Constant;
 using CentralSecurity.Infrastructure.Persistence;
@@ -11,24 +11,24 @@ using System.Data.SqlTypes;
 
 namespace CentralSecurity.Infrastructure.Repositories
 {
-    public class MenuRepository : IMenuRepository
+    public class GeneralParameterRepository: IGeneralParameterRepository
     {
         private readonly CentralSecurityDbContext _dbContext;
         private readonly IMapper _mapper;
 
-        public MenuRepository(CentralSecurityDbContext dbContext, IMapper mapper)
+        public GeneralParameterRepository(CentralSecurityDbContext dbContext, IMapper mapper)
         {
             _dbContext = dbContext;
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<MenuSpDto>> GetAllMenuAsync()
+        public async Task<IEnumerable<GeneralParameterSpDto>> GetAllMenuAsync()
         {
             try
             {
-                string storedProcedureName = Const.StoreProcedure.SP_GET_ALL_MENU;
+                string storedProcedureName = Const.StoreProcedure.SP_GET_ALL_GENERAL_PARAMETERS;
 
-                var dataResult = _dbContext.MenuSp
+                var dataResult = _dbContext.GeneralParameterSp
                       .FromSqlRaw($"EXEC {storedProcedureName}")
                       .AsEnumerable()
                       .ToList();
@@ -37,22 +37,46 @@ namespace CentralSecurity.Infrastructure.Repositories
             }
             catch (Exception ex)
             {
-                throw new Exception("Error al obtener la lista de menu " + ex.Message);
+                throw new Exception("Error al obtener la lista de paramétros generales " + ex.Message);
             }
         }
 
-        public async Task<MenuSpDto> GetMenuByIdAsync(Guid menuId)
+        public async Task<IEnumerable<GeneralParameterDetailSpDto>> GetMenuByCodeAsync(string code)
         {
             try
             {
-                var parameters = Param(menuId);
+                var parameters = ParamCode(code);
                 string paramsString = string.Join(",", parameters.Select(x => x.ParameterName));
 
-                string storedProcedureName = Const.StoreProcedure.SP_GET_ALL_MENU_ID;
+                string storedProcedureName = Const.StoreProcedure.SP_GET_ALL_GENERAL_PARAMETER_DETAIL_CODE;
 
                 var query = $"EXEC {storedProcedureName} {paramsString}";
 
-                var dataResult = _dbContext.MenuSp
+                var dataResult = _dbContext.GeneralParameterSp
+                      .FromSqlRaw(query, parameters.ToArray())
+                      .AsEnumerable()
+                      .ToList();
+
+                return (IEnumerable<GeneralParameterDetailSpDto>)dataResult;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al obtener paramétros generales por id " + ex.Message);
+            }
+        }
+
+        public async Task<GeneralParameterSpDto> GetMenuByIdAsync(Guid id)
+        {
+            try
+            {
+                var parameters = Param(id);
+                string paramsString = string.Join(",", parameters.Select(x => x.ParameterName));
+
+                string storedProcedureName = Const.StoreProcedure.SP_GET_ALL_GENERAL_PARAMETER_ID;
+
+                var query = $"EXEC {storedProcedureName} {paramsString}";
+
+                var dataResult = _dbContext.GeneralParameterSp
                       .FromSqlRaw(query, parameters.ToArray())
                       .AsEnumerable()
                       .FirstOrDefault();
@@ -61,43 +85,43 @@ namespace CentralSecurity.Infrastructure.Repositories
             }
             catch (Exception ex)
             {
-                throw new Exception("Error al obtener el menu por id " + ex.Message);
+                throw new Exception("Error al obtener el lista de los paramétros por codigo " + ex.Message);
             }
         }
 
-        public async Task<IEnumerable<MenuSpDto>> GetMenuByUserAsync(Guid userId)
+        public async Task<ResultSp> CreateMenuAsync(GeneralParameterDto generalParameter)
         {
             try
             {
-                var parameters = ParamMenuUser(userId);
+                var parameters = Param(generalParameter, Const.Accions.INSERT);
+
                 string paramsString = string.Join(",", parameters.Select(x => x.ParameterName));
 
-                string storedProcedureName = Const.StoreProcedure.SP_GET_ALL_MENU_USER;
-
+                var storedProcedureName = Const.StoreProcedure.SP_INSERT_UPDATE_GENERAL_PARAMETERS;
                 var query = $"EXEC {storedProcedureName} {paramsString}";
 
-                var dataResult = _dbContext.MenuSp
-                      .FromSqlRaw(query, parameters.ToArray())
-                      .AsEnumerable()
-                      .ToList();
+                var dataResult = _dbContext.ResultSp
+                    .FromSqlRaw(query, parameters.ToArray())
+                    .AsEnumerable()
+                    .FirstOrDefault();
 
                 return dataResult;
             }
             catch (Exception ex)
             {
-                throw new Exception("Error al obtener el menu por id " + ex.Message);
+                throw new Exception("Error al crear paramétros generales: " + ex.Message);
             }
         }
 
-        public async Task<ResultSp> CreateMenuAsync(MenuDto menu)
+        public async Task<ResultSp> UpdateMenuAsync(GeneralParameterDto generalParameter)
         {
             try
             {
-                var parameters = Param(menu, Const.Accions.INSERT);
+                var parameters = Param(generalParameter, Const.Accions.UPDATE);
 
                 string paramsString = string.Join(",", parameters.Select(x => x.ParameterName));
 
-                var storedProcedureName = Const.StoreProcedure.SP_INSERT_UPDATE_MENU;
+                var storedProcedureName = Const.StoreProcedure.SP_INSERT_UPDATE_GENERAL_PARAMETERS;
                 var query = $"EXEC {storedProcedureName} {paramsString}";
 
                 var dataResult = _dbContext.ResultSp
@@ -113,49 +137,23 @@ namespace CentralSecurity.Infrastructure.Repositories
             }
         }
 
-        public async Task<ResultSp> UpdateMenuAsync(MenuDto menu)
-        {
-            try
-            {
-                var parameters = Param(menu, Const.Accions.UPDATE);
-
-                string paramsString = string.Join(",", parameters.Select(x => x.ParameterName));
-
-                var storedProcedureName = Const.StoreProcedure.SP_INSERT_UPDATE_MENU;
-                var query = $"EXEC {storedProcedureName} {paramsString}";
-
-                var dataResult = _dbContext.ResultSp
-                    .FromSqlRaw(query, parameters.ToArray())
-                    .AsEnumerable()
-                    .FirstOrDefault();
-
-                return dataResult;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error al crear el usuario: " + ex.Message);
-            }
-        }
-
-        public Task<ResultSp> DeleteMenuAsync(Guid menuId)
+        public Task<ResultSp> DeleteMenuAsync(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        public List<SqlParameter> Param(MenuDto input, string Accion)
+        public List<SqlParameter> Param(GeneralParameterDto input, string Accion)
         {
             var resultParam = new List<SqlParameter>()
             {
                 new SqlParameter("@Id", input.Id != null && input.Id != Guid.Empty ? (object)input.Id : SqlString.Null),
-                new SqlParameter("@MenuName", input.MenuName),
-                new SqlParameter("@ParentId", input.ParentId != null && input.ParentId != Guid.Empty ? (object)input.ParentId : SqlString.Null),
-                new SqlParameter("@Url", input.Url),
-                new SqlParameter("@Icon", input.Icon),
-                new SqlParameter("@SortOrder", input.SortOrder),
+                new SqlParameter("@Code", input.Code),
+                new SqlParameter("@Description", input.Description ?? SqlString.Null),
                 new SqlParameter("@IsActive", input.IsActive),
                 new SqlParameter("@UserCreated", input.UserCreated ?? SqlString.Null),
                 new SqlParameter("@UserUpdated", input.UserUpdated ?? SqlString.Null),
-                new SqlParameter("@Accion", Accion)
+                new SqlParameter("@Accion", Accion),
+                new SqlParameter("@Detalles", input.Details)
             };
 
             return resultParam;
@@ -171,11 +169,11 @@ namespace CentralSecurity.Infrastructure.Repositories
             return resultParam;
         }
 
-        public List<SqlParameter> ParamMenuUser(Guid userId)
+        public List<SqlParameter> ParamCode(string code)
         {
             var resultParam = new List<SqlParameter>()
             {
-                new SqlParameter("@UserId", userId != null && userId != Guid.Empty ? (object)userId : SqlString.Null)
+                new SqlParameter("@Code", code  ?? SqlString.Null)
             };
 
             return resultParam;
