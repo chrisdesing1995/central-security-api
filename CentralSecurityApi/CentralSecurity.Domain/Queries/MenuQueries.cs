@@ -1,6 +1,5 @@
 ﻿
 using AutoMapper;
-using CentralSecurity.Domain.Entities;
 using CentralSecurity.Domain.Interfaces.Repositories;
 using CentralSecurity.Domain.Queries.Interfaces;
 using CentralSecurity.Domain.Types;

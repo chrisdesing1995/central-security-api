@@ -26,9 +26,9 @@ namespace CentralSecurity.Api.Services
         {
             try
             {
-                var usersType = await _menuQueries.GetAllMenuAsync();
+                var mmenusType = await _menuQueries.GetAllMenuAsync();
 
-                return _mapper.Map<IEnumerable<MenuOutput>>(usersType);
+                return _mapper.Map<IEnumerable<MenuOutput>>(mmenusType);
             }
             catch (Exception ex)
             {

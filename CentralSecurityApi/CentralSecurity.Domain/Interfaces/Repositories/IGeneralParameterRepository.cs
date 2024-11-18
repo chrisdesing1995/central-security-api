@@ -6,11 +6,11 @@ namespace CentralSecurity.Domain.Interfaces.Repositories
 {
     public interface IGeneralParameterRepository
     {
-        Task<IEnumerable<GeneralParameterSpDto>> GetAllMenuAsync();
-        Task<GeneralParameterSpDto> GetMenuByIdAsync(Guid id);
-        Task<IEnumerable<GeneralParameterDetailSpDto>> GetMenuByCodeAsync(string code);
-        Task<ResultSp> CreateMenuAsync(GeneralParameterDto generalParameter);
-        Task<ResultSp> UpdateMenuAsync(GeneralParameterDto generalParameter);
-        Task<ResultSp> DeleteMenuAsync(Guid id);
+        Task<IEnumerable<GeneralParameterSpDto>> GetAllGeneralParameterAsync();
+        Task<GeneralParameterSpDto> GetGeneralParameterByIdAsync(Guid id);
+        Task<IEnumerable<GeneralParameterDetailSpDto>> GetGeneralParameterByCodeAsync(string code);
+        Task<ResultSp> CreateGeneralParameterAsync(GeneralParameterDto generalParameter);
+        Task<ResultSp> UpdateGeneralParameterAsync(GeneralParameterDto generalParameter);
+        Task<ResultSp> DeleteGeneralParameterAsync(Guid id);
     }
 }

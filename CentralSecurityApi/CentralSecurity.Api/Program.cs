@@ -92,6 +92,12 @@ builder.Services.AddScoped<IPermisoService, PermisoService>();
 builder.Services.AddScoped<IPermisoCommands, PermisoCommands>();
 builder.Services.AddScoped<IPermisoRepository, PermisoRepository>();
 
+
+builder.Services.AddScoped<IGeneralParameterService, GeneralParameterService>();
+builder.Services.AddScoped<IGeneralParameterCommands, GeneralParameterCommands>();
+builder.Services.AddScoped<IGeneralParameterQueries, GeneralParameterQueries>();
+builder.Services.AddScoped<IGeneralParameterRepository, GeneralParameterRepository>();
+
 #endregion
 
 var app = builder.Build();

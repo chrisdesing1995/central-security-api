@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using CentralSecurity.Domain.Common;
 using CentralSecurity.Domain.Dto;
-using CentralSecurity.Domain.Entities;
 using CentralSecurity.Domain.Interfaces.Repositories;
 using CentralSecurity.Infrastructure.Constant;
 using CentralSecurity.Infrastructure.Persistence;
@@ -22,7 +21,7 @@ namespace CentralSecurity.Infrastructure.Repositories
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<GeneralParameterSpDto>> GetAllMenuAsync()
+        public async Task<IEnumerable<GeneralParameterSpDto>> GetAllGeneralParameterAsync()
         {
             try
             {
@@ -41,7 +40,7 @@ namespace CentralSecurity.Infrastructure.Repositories
             }
         }
 
-        public async Task<IEnumerable<GeneralParameterDetailSpDto>> GetMenuByCodeAsync(string code)
+        public async Task<IEnumerable<GeneralParameterDetailSpDto>> GetGeneralParameterByCodeAsync(string code)
         {
             try
             {
@@ -65,7 +64,7 @@ namespace CentralSecurity.Infrastructure.Repositories
             }
         }
 
-        public async Task<GeneralParameterSpDto> GetMenuByIdAsync(Guid id)
+        public async Task<GeneralParameterSpDto> GetGeneralParameterByIdAsync(Guid id)
         {
             try
             {
@@ -89,7 +88,7 @@ namespace CentralSecurity.Infrastructure.Repositories
             }
         }
 
-        public async Task<ResultSp> CreateMenuAsync(GeneralParameterDto generalParameter)
+        public async Task<ResultSp> CreateGeneralParameterAsync(GeneralParameterDto generalParameter)
         {
             try
             {
@@ -113,7 +112,7 @@ namespace CentralSecurity.Infrastructure.Repositories
             }
         }
 
-        public async Task<ResultSp> UpdateMenuAsync(GeneralParameterDto generalParameter)
+        public async Task<ResultSp> UpdateGeneralParameterAsync(GeneralParameterDto generalParameter)
         {
             try
             {
@@ -137,7 +136,7 @@ namespace CentralSecurity.Infrastructure.Repositories
             }
         }
 
-        public Task<ResultSp> DeleteMenuAsync(Guid id)
+        public Task<ResultSp> DeleteGeneralParameterAsync(Guid id)
         {
             throw new NotImplementedException();
         }
