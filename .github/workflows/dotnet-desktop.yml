@@ -56,8 +56,7 @@ jobs:
                              # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
 
     env:
-      Solution_Name: CentralSecurity.sln                     # Nombre del archivo de solución.
-      Test_Project_Path: CentralSecurity.Tests\CentralSecurity.Tests.csproj  # Ruta al proyecto de pruebas, si existe. Ajusta si es necesario.
+      Solution_Name: CentralSecurityApi.sln                     # Nombre del archivo de solución.
       Wap_Project_Directory: CentralSecurity.Api             # Directorio del proyecto principal para empaquetar o desplegar.
       Wap_Project_Path: CentralSecurity.Api\CentralSecurity.Api.csproj  # Ruta al archivo de proyecto principal.
 
