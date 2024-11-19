@@ -38,13 +38,13 @@ namespace CentralSecurity.Api.Services
             }
         }
 
-        public async Task<IEnumerable<GeneralParameterOutput>> GetGeneralParameterByCodeAsync(string code)
+        public async Task<IEnumerable<GeneralParameterDetailOutput>> GetGeneralParameterByCodeAsync(string code)
         {
             try
             {
                 var generalParamType = await _generalParameterQueries.GetGeneralParameterByCodeAsync(code);
 
-                return _mapper.Map<IEnumerable<GeneralParameterOutput>>(generalParamType);
+                return _mapper.Map<IEnumerable<GeneralParameterDetailOutput>>(generalParamType);
             }
             catch (Exception ex)
             {

@@ -6,6 +6,6 @@ namespace CentralSecurity.Domain.Queries.Interfaces
     {
         Task<IEnumerable<GeneralParameterType>> GetAllGeneralParameterAsync();
         Task<GeneralParameterType> GetGeneralParameterByIdAsync(Guid generalParamId);
-        Task<IEnumerable<GeneralParameterType>> GetGeneralParameterByCodeAsync(string code);
+        Task<IEnumerable<GeneralParameterDetailType>> GetGeneralParameterByCodeAsync(string code);
     }
 }

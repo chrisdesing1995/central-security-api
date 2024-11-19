@@ -86,7 +86,7 @@ BEGIN
 
             DELETE FROM [dbo].[GeneralParameterDetail]
             WHERE GeneralParameterId = @Id
-              AND Code NOT IN (SELECT Code FROM @Detalles);
+              AND Code IN (SELECT Code FROM @Detalles);
 
             SELECT @ListCodes = STRING_AGG(Code, ', ') 
             FROM [dbo].[GeneralParameterDetail]
@@ -144,7 +144,7 @@ BEGIN
                     -- Insertar nuevo registro si no existe
                     INSERT INTO [dbo].[GeneralParameterDetail] 
                     (Id, GeneralParameterId, Code, Value1, Value2, Value3, Value4, Value5, CreatedAt, UserCreated)
-                    VALUES (NEWID(), @Id, @DetailCode, @Value1, @Value2, @Value3, @Value4, @Value5, @CreatedAt, @UserCreated);
+                    VALUES (NEWID(), @Id, @DetailCode, @Value1, @Value2, @Value3, @Value4, @Value5, @UpdatedAt, @UserUpdated);
 
 					SET @AuditDetails = CONCAT('Acción: INSERT' ,'Nuevo detalle insertado con Code: ', @DetailCode);
                     EXEC [dbo].[Sp_Insert_AuditLog]

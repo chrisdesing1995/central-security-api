@@ -27,6 +27,7 @@ namespace CentralSecurity.Infrastructure.Persistence
         public DbSet<UserSpDto> UserSp { get; set; }
         public DbSet<MenuSpDto> MenuSp { get; set; }
         public DbSet<GeneralParameterSpDto> GeneralParameterSp { get; set; }
+        public DbSet<GeneralParameterDetailSpDto> GeneralParameterDetailSp { get; set; }
         #endregion
 
         public DbSet<UserLoginDto> Login { get; set; }
@@ -40,6 +41,7 @@ namespace CentralSecurity.Infrastructure.Persistence
             modelBuilder.Entity<UserSpDto>().HasNoKey();
             modelBuilder.Entity<MenuSpDto>().HasNoKey();
             modelBuilder.Entity<GeneralParameterSpDto>().HasNoKey();
+            modelBuilder.Entity<GeneralParameterDetailSpDto>().HasNoKey();
         }
     }
 }

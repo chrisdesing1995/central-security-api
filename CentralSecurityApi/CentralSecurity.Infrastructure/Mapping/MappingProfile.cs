@@ -3,6 +3,7 @@ using AutoMapper;
 using CentralSecurity.Domain.Dto;
 using CentralSecurity.Domain.Entities;
 using CentralSecurity.Domain.Types;
+using System.Data;
 
 namespace CentralSecurity.Infrastructure.Mapping
 {
@@ -22,6 +23,8 @@ namespace CentralSecurity.Infrastructure.Mapping
 
             CreateMap<GeneralParameter, GeneralParameterDto>();
             CreateMap<GeneralParameterDto, GeneralParameter>();
+            CreateMap<GeneralParameterDetail, GeneralParameterDetailDto>();
+            CreateMap<GeneralParameterDetailDto, GeneralParameterDetail>();
 
             #endregion
 
@@ -52,8 +55,16 @@ namespace CentralSecurity.Infrastructure.Mapping
 
             CreateMap<GeneralParameterDto, GeneralParameterType>();
             CreateMap<GeneralParameterType, GeneralParameterDto>();
+            CreateMap<GeneralParameterDetailDto, GeneralParameterDetailType>();
+            CreateMap<GeneralParameterDetailType, GeneralParameterDetailDto>();
+
+            CreateMap<GeneralParameterSpDto, GeneralParameterType>();
+            CreateMap<GeneralParameterType, GeneralParameterSpDto>();
+            CreateMap<GeneralParameterDetailSpDto, GeneralParameterDetailType>();
+            CreateMap<GeneralParameterDetailType, GeneralParameterDetailSpDto>();
             #endregion
 
         }
+
     }
 }

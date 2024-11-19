@@ -8,7 +8,7 @@ namespace CentralSecurity.Api.Services.Interfaces
     {
         Task<IEnumerable<GeneralParameterOutput>> GetAllGeneralParameterAsync();
         Task<GeneralParameterOutput> GetGeneralParameterByIdAsync(Guid generalParamId);
-        Task<IEnumerable<GeneralParameterOutput>> GetGeneralParameterByCodeAsync(string code);
+        Task<IEnumerable<GeneralParameterDetailOutput>> GetGeneralParameterByCodeAsync(string code);
         Task<ResultSp> CreateGeneralParameterAsync(GeneralParameterInput generalParam);
         Task<ResultSp> UpdateGeneralParameterAsync(GeneralParameterInput generalParam);
     }

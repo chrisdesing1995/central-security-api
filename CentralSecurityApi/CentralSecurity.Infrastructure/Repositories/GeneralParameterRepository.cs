@@ -6,6 +6,7 @@ using CentralSecurity.Infrastructure.Constant;
 using CentralSecurity.Infrastructure.Persistence;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 using System.Data.SqlTypes;
 
 namespace CentralSecurity.Infrastructure.Repositories
@@ -51,12 +52,12 @@ namespace CentralSecurity.Infrastructure.Repositories
 
                 var query = $"EXEC {storedProcedureName} {paramsString}";
 
-                var dataResult = _dbContext.GeneralParameterSp
+                var dataResult = _dbContext.GeneralParameterDetailSp
                       .FromSqlRaw(query, parameters.ToArray())
                       .AsEnumerable()
                       .ToList();
 
-                return (IEnumerable<GeneralParameterDetailSpDto>)dataResult;
+                return dataResult;
             }
             catch (Exception ex)
             {
@@ -152,7 +153,11 @@ namespace CentralSecurity.Infrastructure.Repositories
                 new SqlParameter("@UserCreated", input.UserCreated ?? SqlString.Null),
                 new SqlParameter("@UserUpdated", input.UserUpdated ?? SqlString.Null),
                 new SqlParameter("@Accion", Accion),
-                new SqlParameter("@Detalles", input.Details)
+                new SqlParameter("@Detalles", SqlDbType.Structured)
+                {
+                    TypeName = "dbo.GeneralParameterDetailDto",
+                    Value = ConvertToDataTable(input.Details)
+                }
             };
 
             return resultParam;
@@ -177,6 +182,37 @@ namespace CentralSecurity.Infrastructure.Repositories
 
             return resultParam;
         }
+
+        private DataTable ConvertToDataTable(List<GeneralParameterDetailDto> details)
+        {
+            var table = new DataTable();
+            table.Columns.Add("Id", typeof(Guid));
+            table.Columns.Add("Code", typeof(string));
+            table.Columns.Add("Value1", typeof(string));
+            table.Columns.Add("Value2", typeof(string));
+            table.Columns.Add("Value3", typeof(string));
+            table.Columns.Add("Value4", typeof(string));
+            table.Columns.Add("Value5", typeof(string));
+
+            if (details != null)
+            {
+                foreach (var detail in details)
+                {
+                    table.Rows.Add(
+                        detail.Id != Guid.Empty ? (object)detail.Id : DBNull.Value,
+                        detail.Code,
+                        detail.Value1,
+                        detail.Value2,
+                        detail.Value3,
+                        detail.Value4,
+                        detail.Value5
+                    );
+                }
+            }
+
+            return table;
+        }
+
 
     }
 }

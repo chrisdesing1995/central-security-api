@@ -7,10 +7,10 @@ BEGIN
     SET NOCOUNT ON;
 
 	SELECT 
-		[Id],
-		[Code],
-		[Description],
-		[IsActive]
-	FROM [dbo].[GeneralParameter]
+		GP.[Id],
+		GP.[Code],
+		GP.[Description],
+		GP.[IsActive]
+	FROM [dbo].[GeneralParameter] GP
 
 END;

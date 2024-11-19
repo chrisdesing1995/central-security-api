@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using CentralSecurity.Domain.Dto;
 using CentralSecurity.Domain.Interfaces.Repositories;
 using CentralSecurity.Domain.Queries.Interfaces;
 using CentralSecurity.Domain.Types;
@@ -35,6 +36,7 @@ namespace CentralSecurity.Domain.Queries
             try
             {
                 var parameters = await _generalParameterRepository.GetGeneralParameterByIdAsync(generalParamId);
+                parameters.Details = (List<GeneralParameterDetailSpDto>)await _generalParameterRepository.GetGeneralParameterByCodeAsync(parameters.Code);
 
                 return _mapper.Map<GeneralParameterType>(parameters);
             }
@@ -44,13 +46,13 @@ namespace CentralSecurity.Domain.Queries
             }
         }
 
-        public async Task<IEnumerable<GeneralParameterType>> GetGeneralParameterByCodeAsync(string code)
+        public async Task<IEnumerable<GeneralParameterDetailType>> GetGeneralParameterByCodeAsync(string code)
         {
             try
             {
                 var parameters = await _generalParameterRepository.GetGeneralParameterByCodeAsync(code);
 
-                return _mapper.Map<IEnumerable<GeneralParameterType>>(parameters);
+                return _mapper.Map<IEnumerable<GeneralParameterDetailType>>(parameters);
             }
             catch (Exception ex)
             {

@@ -57,14 +57,14 @@ namespace CentralSecurity.Api.Controllers
         }
 
         [HttpGet("GetByCode/{code}")]
-        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(ResponseResult<IEnumerable<GeneralParameterOutput>>))]
+        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(ResponseResult<IEnumerable<GeneralParameterDetailOutput>>))]
         [SwaggerResponse(StatusCodes.Status400BadRequest)]
         [SwaggerResponse(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetByCode(string code)
         {
             var responseResult = await _generalParameterService.GetGeneralParameterByCodeAsync(code);
 
-            var outputResult = new ResponseResult<IEnumerable<GeneralParameterOutput>>
+            var outputResult = new ResponseResult<IEnumerable<GeneralParameterDetailOutput>>
             {
                 Result = responseResult,
                 Status = responseResult != null ? true : false,
