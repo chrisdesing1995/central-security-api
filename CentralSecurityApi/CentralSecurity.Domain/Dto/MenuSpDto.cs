@@ -9,5 +9,6 @@ namespace CentralSecurity.Domain.Dto
         public string Url { get; set; }
         public string Icon { get; set; }
         public int SortOrder { get; set; }
+        public string IsActive { get; set; }
     }
 }

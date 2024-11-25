@@ -7,7 +7,7 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    SELECT DISTINCT m.Id, m.MenuName, m.ParentId, m.Url, m.Icon, m.SortOrder
+    SELECT DISTINCT m.Id, m.MenuName, m.ParentId, m.Url, m.Icon, m.SortOrder,m.IsActive
     FROM [User] u
 		INNER JOIN UserRole ur ON u.Id = ur.UserId
 		INNER JOIN RoleMenu rm ON ur.RoleId = rm.RoleId

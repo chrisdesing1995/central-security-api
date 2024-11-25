@@ -9,7 +9,7 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    SELECT DISTINCT m.Id, m.MenuName, m.ParentId, m.Url, m.Icon, m.SortOrder
+    SELECT DISTINCT m.Id, m.MenuName, m.ParentId, m.Url, m.Icon, m.SortOrder,m.IsActive
     FROM [Menu] m
     WHERE m.IsActive = 'A' AND m.Id = @Id
     ORDER BY m.SortOrder;
