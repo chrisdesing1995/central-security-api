@@ -31,7 +31,12 @@ namespace CentralSecurity.Domain.Commands
             {
                 var loginDto = _mapper.Map<LoginDto>(loginType);
                 var userDto = await _authenticationRepository.GetUserByUsername(loginDto);
-             
+
+                if (userDto == null)
+                {
+                    throw new Exception("Credenciales incorrecta");
+                }
+
                 var verfiPassword = CommonService.ConverToDecrypt(userDto.Password) == loginType.Password;
 
                 if (!verfiPassword)
