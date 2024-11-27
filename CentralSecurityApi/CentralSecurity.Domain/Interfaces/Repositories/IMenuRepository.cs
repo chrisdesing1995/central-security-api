@@ -9,6 +9,7 @@ namespace CentralSecurity.Domain.Interfaces.Repositories
         Task<IEnumerable<MenuSpDto>> GetAllMenuAsync();
         Task<MenuSpDto> GetMenuByIdAsync(Guid menuId);
         Task<IEnumerable<MenuSpDto>> GetMenuByUserAsync(Guid userId);
+        Task<IEnumerable<MenuSpDto>> GetMenuByRolAsync(Guid roleId);
         Task<ResultSp> CreateMenuAsync(MenuDto menu);
         Task<ResultSp> UpdateMenuAsync(MenuDto menu);
         Task<ResultSp> DeleteMenuAsync(Guid menuId);

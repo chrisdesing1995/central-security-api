@@ -74,6 +74,24 @@ namespace CentralSecurity.Api.Controllers
             return Ok(outputResult);
         }
 
+        [HttpGet("GetByRolId/{rolId}")]
+        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(ResponseResult<IEnumerable<MenuOutput>>))]
+        [SwaggerResponse(StatusCodes.Status400BadRequest)]
+        [SwaggerResponse(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetByRolId(Guid rolId)
+        {
+            var responseResult = await _menuService.GetMenuByRolAsync(rolId);
+
+            var outputResult = new ResponseResult<IEnumerable<MenuOutput>>
+            {
+                Result = responseResult,
+                Status = responseResult != null ? true : false,
+                Message = responseResult != null ? "Consulta exitosa" : "Error al obtener menu por rol",
+            };
+
+            return Ok(outputResult);
+        }
+
         [HttpPost("Create")]
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(IActionResult))]
         [SwaggerResponse(StatusCodes.Status400BadRequest)]

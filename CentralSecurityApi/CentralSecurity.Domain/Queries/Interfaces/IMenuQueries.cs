@@ -8,5 +8,6 @@ namespace CentralSecurity.Domain.Queries.Interfaces
         Task<IEnumerable<MenuType>> GetAllMenuAsync();
         Task<MenuType> GetMenuByIdAsync(Guid menuId);
         Task<IEnumerable<MenuType>> GetMenuByUserAsync(Guid userId);
+        Task<IEnumerable<MenuType>> GetMenuByRolAsync(Guid rolId);
     }
 }

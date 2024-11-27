@@ -4,6 +4,7 @@ using CentralSecurity.Api.Models.Output;
 using CentralSecurity.Api.Services.Interfaces;
 using CentralSecurity.Domain.Commands.Interfaces;
 using CentralSecurity.Domain.Common;
+using CentralSecurity.Domain.Entities;
 using CentralSecurity.Domain.Queries.Interfaces;
 using CentralSecurity.Domain.Types;
 
@@ -61,6 +62,20 @@ namespace CentralSecurity.Api.Services
             catch (Exception ex)
             {
                 throw new Exception("Error al obtener menu por usuario " + ex.Message);
+            }
+        }
+
+        public async Task<IEnumerable<MenuOutput>> GetMenuByRolAsync(Guid rolId)
+        {
+            try
+            {
+                var menuType = await _menuQueries.GetMenuByRolAsync(rolId);
+
+                return _mapper.Map<IEnumerable<MenuOutput>>(menuType);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al obtener menu por rol " + ex.Message);
             }
         }
 

@@ -31,6 +31,7 @@ namespace CentralSecurity.Infrastructure.Constant
             public const string SP_GET_ALL_MENU = "Sp_Get_Menus";
             public const string SP_GET_ALL_MENU_ID = "Sp_Get_Menus_By_Id";
             public const string SP_GET_ALL_MENU_USER = "Sp_Get_Menus_By_User";
+            public const string SP_GET_ALL_MENU_ROL = "Sp_Get_Menus_By_Rol";
             public const string SP_INSERT_UPDATE_MENU = "Sp_Insert_Update_Menu";
 
             public const string SP_GET_ALL_USERS = "Sp_Get_Users";

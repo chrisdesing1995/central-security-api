@@ -1,5 +1,6 @@
 ﻿
 using AutoMapper;
+using CentralSecurity.Domain.Entities;
 using CentralSecurity.Domain.Interfaces.Repositories;
 using CentralSecurity.Domain.Queries.Interfaces;
 using CentralSecurity.Domain.Types;
@@ -42,6 +43,20 @@ namespace CentralSecurity.Domain.Queries
             catch (Exception ex)
             {
                 throw new Exception("Error al obtener menu por Id " + ex.Message);
+            }
+        }
+
+        public async Task<IEnumerable<MenuType>> GetMenuByRolAsync(Guid rolId)
+        {
+            try
+            {
+                var menu = await _menuRepository.GetMenuByRolAsync(rolId);
+
+                return _mapper.Map<IEnumerable<MenuType>>(menu);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al obtener menu por rol " + ex.Message);
             }
         }
 

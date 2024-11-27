@@ -2,6 +2,7 @@
 using AutoMapper;
 using CentralSecurity.Domain.Common;
 using CentralSecurity.Domain.Dto;
+using CentralSecurity.Domain.Entities;
 using CentralSecurity.Domain.Interfaces.Repositories;
 using CentralSecurity.Infrastructure.Constant;
 using CentralSecurity.Infrastructure.Persistence;
@@ -85,7 +86,31 @@ namespace CentralSecurity.Infrastructure.Repositories
             }
             catch (Exception ex)
             {
-                throw new Exception("Error al obtener el menu por id " + ex.Message);
+                throw new Exception("Error al obtener el menu por usuario " + ex.Message);
+            }
+        }
+
+        public async Task<IEnumerable<MenuSpDto>> GetMenuByRolAsync(Guid roleId)
+        {
+            try
+            {
+                var parameters = ParamMenuUser(roleId);
+                string paramsString = string.Join(",", parameters.Select(x => x.ParameterName));
+
+                string storedProcedureName = Const.StoreProcedure.SP_GET_ALL_MENU_ROL;
+
+                var query = $"EXEC {storedProcedureName} {paramsString}";
+
+                var dataResult = _dbContext.MenuSp
+                      .FromSqlRaw(query, parameters.ToArray())
+                      .AsEnumerable()
+                      .ToList();
+
+                return dataResult;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al obtener el menu por rol " + ex.Message);
             }
         }
 
@@ -176,6 +201,16 @@ namespace CentralSecurity.Infrastructure.Repositories
             var resultParam = new List<SqlParameter>()
             {
                 new SqlParameter("@UserId", userId != null && userId != Guid.Empty ? (object)userId : SqlString.Null)
+            };
+
+            return resultParam;
+        }
+
+        public List<SqlParameter> ParamMenuRol(Guid rolId)
+        {
+            var resultParam = new List<SqlParameter>()
+            {
+                new SqlParameter("@RolId", rolId != null && rolId != Guid.Empty ? (object)rolId : SqlString.Null)
             };
 
             return resultParam;
