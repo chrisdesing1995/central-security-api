@@ -15,9 +15,9 @@ jobs:
     runs-on: windows-latest
 
     env:
-      Solution_Name: CentralSecurity.sln                     # Ruta correcta al archivo de solución.
-      Wap_Project_Directory: CentralSecurity.Api             # Directorio del proyecto principal.
-      Wap_Project_Path: CentralSecurity.Api\CentralSecurity.Api.csproj  # Ruta al archivo del proyecto principal.
+      Solution_Name: central-security-api/CentralSecurityApi/CentralSecurityApi.sln  # Ruta correcta al archivo de solución.
+      Wap_Project_Directory: central-security-api/CentralSecurityApi                 # Directorio del proyecto principal.
+      Wap_Project_Path: central-security-api/CentralSecurityApi/CentralSecurityApi.csproj  # Ruta al archivo del proyecto principal.
 
     steps:
     - name: Checkout
@@ -34,7 +34,7 @@ jobs:
       uses: microsoft/setup-msbuild@v2
 
     - name: Execute unit tests
-      run: dotnet test CentralSecurity.sln
+      run: dotnet test ${{ env.Solution_Name }}
 
     - name: Restore the application
       run: msbuild $env:Solution_Name /t:Restore /p:Configuration=$env:Configuration
