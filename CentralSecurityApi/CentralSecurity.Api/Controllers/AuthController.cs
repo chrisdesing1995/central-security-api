@@ -25,16 +25,37 @@ namespace CentralSecurity.Api.Controllers
         [SwaggerResponse(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Create(LoginInput input)
         {
-            var responseResult = await _authenticationService.AuthenticateLogin(input);
-
-            var outputResult = new ResponseResult<LoginOutput>
+            try
             {
-                Result = responseResult,
-                Status = responseResult != null ? true : false,
-                Message = responseResult != null ? "Consulta exitosa" : "Error al obtener rol por Id",
-            };
+                var responseResult = await _authenticationService.AuthenticateLogin(input);
 
-            return Ok(outputResult);
+                var outputResult = new ResponseResult<LoginOutput>
+                {
+                    Result = responseResult,
+                    Status = responseResult != null ? true : false,
+                    Message = responseResult != null ? "Consulta exitosa" : "Error al obtener rol por Id",
+                };
+
+                return BuildResponse(outputResult);
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { message = ex.Message });
+            }
+        }
+
+        private IActionResult BuildResponse<T>(ResponseResult<T> responseResult)
+        {
+            if (responseResult == null || !responseResult.Status)
+            {
+                return NotFound(new { message = responseResult?.Message ?? "Ocurrió un error." });
+            }
+            return Ok(new
+            {
+                responseResult.Result,
+                responseResult.Status,
+                responseResult.Message
+            });
         }
 
     }

@@ -1,5 +1,4 @@
 ﻿
-using AutoMapper;
 using CentralSecurity.Domain.Common;
 using CentralSecurity.Domain.Dto;
 using CentralSecurity.Domain.Interfaces.Repositories;

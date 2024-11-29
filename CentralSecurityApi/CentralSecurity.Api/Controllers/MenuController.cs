@@ -21,22 +21,28 @@ namespace CentralSecurity.Api.Controllers
         }
 
         [HttpGet("GetAll")]
-        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(ResponseResult<IEnumerable<UserOutput>>))]
+        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(ResponseResult<IEnumerable<MenuOutput>>))]
         [SwaggerResponse(StatusCodes.Status400BadRequest)]
         [SwaggerResponse(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetAll()
         {
-            var responseResult = await _menuService.GetAllMenuAsync();
-
-            var outputResult = new ResponseResult<IEnumerable<MenuOutput>>
+            try
             {
-                Result = responseResult,
-                Status = responseResult != null ? true : false,
-                Message = responseResult != null ? "Consulta exitosa" : "Error al obtener usuarios",
-            };
-
-            return Ok(outputResult);
+                var responseResult = await _menuService.GetAllMenuAsync();
+                var outputResult = new ResponseResult<IEnumerable<MenuOutput>>
+                {
+                    Result = responseResult,
+                    Status = responseResult != null,
+                    Message = responseResult != null ? "Consulta exitosa" : "Error al obtener lista de menu"
+                };
+                return BuildResponse(outputResult);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { message = ex.Message });
+            }
         }
+
 
         [HttpGet("GetById/{id}")]
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(ResponseResult<MenuOutput>))]
@@ -44,16 +50,21 @@ namespace CentralSecurity.Api.Controllers
         [SwaggerResponse(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetById(Guid id)
         {
-            var responseResult = await _menuService.GetMenuByIdAsync(id);
-
-            var outputResult = new ResponseResult<MenuOutput>
+            try
             {
-                Result = responseResult,
-                Status = responseResult != null ? true : false,
-                Message = responseResult != null ? "Consulta exitosa" : "Error al obtener menu por Id",
-            };
-
-            return Ok(outputResult);
+                var responseResult = await _menuService.GetMenuByIdAsync(id);
+                var outputResult = new ResponseResult<MenuOutput>
+                {
+                    Result = responseResult,
+                    Status = responseResult != null,
+                    Message = responseResult != null ? "Consulta exitosa" : "Error al obtener menu por id"
+                };
+                return BuildResponse(outputResult);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { message = ex.Message });
+            }
         }
 
         [HttpGet("GetByUserId/{userId}")]
@@ -62,16 +73,21 @@ namespace CentralSecurity.Api.Controllers
         [SwaggerResponse(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetByUserId(Guid userId)
         {
-            var responseResult = await _menuService.GetMenuByUserAsync(userId);
-
-            var outputResult = new ResponseResult<IEnumerable<MenuOutput>>
+            try
             {
-                Result = responseResult,
-                Status = responseResult != null ? true : false,
-                Message = responseResult != null ? "Consulta exitosa" : "Error al obtener menu por usuario",
-            };
-
-            return Ok(outputResult);
+                var responseResult = await _menuService.GetMenuByUserAsync(userId);
+                var outputResult = new ResponseResult<IEnumerable<MenuOutput>>
+                {
+                    Result = responseResult,
+                    Status = responseResult != null,
+                    Message = responseResult != null ? "Consulta exitosa" : "Error al obtener menu por usuario"
+                };
+                return BuildResponse(outputResult);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { message = ex.Message });
+            }
         }
 
         [HttpGet("GetByRolId/{rolId}")]
@@ -80,16 +96,21 @@ namespace CentralSecurity.Api.Controllers
         [SwaggerResponse(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetByRolId(Guid rolId)
         {
-            var responseResult = await _menuService.GetMenuByRolAsync(rolId);
-
-            var outputResult = new ResponseResult<IEnumerable<MenuOutput>>
+            try
             {
-                Result = responseResult,
-                Status = responseResult != null ? true : false,
-                Message = responseResult != null ? "Consulta exitosa" : "Error al obtener menu por rol",
-            };
-
-            return Ok(outputResult);
+                var responseResult = await _menuService.GetMenuByRolAsync(rolId);
+                var outputResult = new ResponseResult<IEnumerable<MenuOutput>>
+                {
+                    Result = responseResult,
+                    Status = responseResult != null,
+                    Message = responseResult != null ? "Consulta exitosa" : "Error al obtener menu por rol"
+                };
+                return BuildResponse(outputResult);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { message = ex.Message });
+            }
         }
 
         [HttpPost("Create")]
@@ -98,13 +119,21 @@ namespace CentralSecurity.Api.Controllers
         [SwaggerResponse(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Create(MenuInput input)
         {
-            var responseResult = await _menuService.CreateMenuAsync(input);
-            return Ok(new
+            try
             {
-                Result = responseResult.Data,
-                responseResult.Status,
-                responseResult.Message
-            });
+                var responseResult = await _menuService.CreateMenuAsync(input);
+                var outputResult = new ResponseResult<ResultSp>
+                {
+                    Result = responseResult,
+                    Status = responseResult != null,
+                    Message = responseResult != null ? responseResult.Message : "Error al crear item del menu"
+                };
+                return BuildResponse(outputResult);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { message = ex.Message });
+            }
         }
 
 
@@ -114,14 +143,37 @@ namespace CentralSecurity.Api.Controllers
         [SwaggerResponse(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Update(MenuInput input)
         {
-            var responseResult = await _menuService.UpdateMenuAsync(input);
+            try
+            {
+                var responseResult = await _menuService.UpdateMenuAsync(input);
+                var outputResult = new ResponseResult<ResultSp>
+                {
+                    Result = responseResult,
+                    Status = responseResult != null,
+                    Message = responseResult != null ? responseResult.Message : "Error al actualizar item del menu"
+
+                };
+                return BuildResponse(outputResult);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { message = ex.Message });
+            }
+        }
+
+        private IActionResult BuildResponse<T>(ResponseResult<T> responseResult)
+        {
+            if (responseResult == null || !responseResult.Status)
+            {
+                return NotFound(new { message = responseResult?.Message ?? "Ocurrió un error." });
+            }
             return Ok(new
             {
-                Result = responseResult.Data,
+                responseResult.Result,
                 responseResult.Status,
                 responseResult.Message
             });
-
         }
+
     }
 }

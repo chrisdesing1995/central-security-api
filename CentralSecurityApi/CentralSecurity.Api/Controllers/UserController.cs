@@ -25,16 +25,24 @@ namespace CentralSecurity.Api.Controllers
         [SwaggerResponse(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetAll()
         {
-            var responseResult = await _userService.GetAllUserAsync();
-
-            var outputResult = new ResponseResult<IEnumerable<UserOutput>>
+            try
             {
-                Result = responseResult,
-                Status = responseResult != null ? true : false,
-                Message = responseResult != null ? "Consulta exitosa" : "Error al obtener usuarios",
-            };
+                var responseResult = await _userService.GetAllUserAsync();
 
-            return Ok(outputResult);
+                var outputResult = new ResponseResult<IEnumerable<UserOutput>>
+                {
+                    Result = responseResult,
+                    Status = responseResult != null ? true : false,
+                    Message = responseResult != null ? "Consulta exitosa" : "Error al obtener usuarios",
+                };
+
+                return BuildResponse(outputResult);
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { message = ex.Message });
+            }
+           
         }
 
 
@@ -44,16 +52,25 @@ namespace CentralSecurity.Api.Controllers
         [SwaggerResponse(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetById(Guid id)
         {
-            var responseResult = await _userService.GetUserByIdAsync(id);
-
-            var outputResult = new ResponseResult<UserOutput>
+            try
             {
-                Result = responseResult,
-                Status = responseResult != null ? true : false,
-                Message = responseResult != null ? "Consulta exitosa" : "Error al obtener usuario por Id",
-            };
+                var responseResult = await _userService.GetUserByIdAsync(id);
 
-            return Ok(outputResult);
+                var outputResult = new ResponseResult<UserOutput>
+                {
+                    Result = responseResult,
+                    Status = responseResult != null ? true : false,
+                    Message = responseResult != null ? "Consulta exitosa" : "Error al obtener usuario por Id",
+                };
+
+                return BuildResponse(outputResult);
+
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { message = ex.Message });
+            }
+            
         }
 
         [HttpPost("Create")]
@@ -62,13 +79,22 @@ namespace CentralSecurity.Api.Controllers
         [SwaggerResponse(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Create(UserInput input)
         {
-            var responseResult = await _userService.CreateUserAsync(input);
-            return Ok(new
+            try
             {
-                Result = responseResult.Data,
-                responseResult.Status,
-                responseResult.Message
-            });
+                var responseResult = await _userService.CreateUserAsync(input);
+                var outputResult = new ResponseResult<ResultSp>
+                {
+                    Result = responseResult,
+                    Status = responseResult != null,
+                    Message = responseResult != null ? responseResult.Message : "Error al crear usuario"
+                };
+                return BuildResponse(outputResult);
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { message = ex.Message });
+            }
+            
         }
 
 
@@ -78,14 +104,37 @@ namespace CentralSecurity.Api.Controllers
         [SwaggerResponse(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Update(UserInput input)
         {
-            var responseResult = await _userService.UpdateUserAsync(input);
+
+            try
+            {
+                var responseResult = await _userService.UpdateUserAsync(input);
+                var outputResult = new ResponseResult<ResultSp>
+                {
+                    Result = responseResult,
+                    Status = responseResult != null,
+                    Message = responseResult != null ? responseResult.Message : "Error al actualizar usuario"
+                };
+                return BuildResponse(outputResult);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { message = ex.Message });
+            }
+
+        }
+
+        private IActionResult BuildResponse<T>(ResponseResult<T> responseResult)
+        {
+            if (responseResult == null || !responseResult.Status)
+            {
+                return NotFound(new { message = responseResult?.Message ?? "Ocurrió un error." });
+            }
             return Ok(new
             {
-                Result = responseResult.Data,
+                responseResult.Result,
                 responseResult.Status,
                 responseResult.Message
             });
-
         }
     }
 }

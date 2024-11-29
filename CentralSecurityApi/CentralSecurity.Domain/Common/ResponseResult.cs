@@ -3,7 +3,7 @@ namespace CentralSecurity.Domain.Common
 {
     public class ResponseResult<T>
     {
-        public T Result { get; set; }
+        public T? Result { get; set; }
         public bool Status { get; set; }
         public string Message { get; set; }
 
@@ -23,7 +23,7 @@ namespace CentralSecurity.Domain.Common
             Status = status;
         }
 
-        public ResponseResult(T result, string message, bool status = false)
+        public ResponseResult(T? result, string message, bool status = false)
         {
             Result = result;
             Message = message;

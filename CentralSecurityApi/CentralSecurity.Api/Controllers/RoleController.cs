@@ -25,16 +25,24 @@ namespace CentralSecurity.Api.Controllers
         [SwaggerResponse(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetAll()
         {
-            var responseResult = await _roleService.GetAllRoleAsync();
-
-            var outputResult = new ResponseResult<IEnumerable<RoleOutput>>
+            try
             {
-                Result = responseResult,
-                Status = responseResult != null ? true : false,
-                Message = responseResult != null ? "Consulta exitosa" : "Error al obtener roles",
-            };
+                var responseResult = await _roleService.GetAllRoleAsync();
 
-            return Ok(outputResult);
+                var outputResult = new ResponseResult<IEnumerable<RoleOutput>>
+                {
+                    Result = responseResult,
+                    Status = responseResult != null ? true : false,
+                    Message = responseResult != null ? "Consulta exitosa" : "Error al obtener roles",
+                };
+
+                return BuildResponse(outputResult);
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { message = ex.Message });
+            }
+            
         }
 
 
@@ -44,16 +52,22 @@ namespace CentralSecurity.Api.Controllers
         [SwaggerResponse(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetById(Guid id)
         {
-            var responseResult = await _roleService.GetRoleByIdAsync(id);
-
-            var outputResult = new ResponseResult<RoleOutput>
+            try
             {
-                Result = responseResult,
-                Status = responseResult != null ? true : false,
-                Message = responseResult != null ? "Consulta exitosa" : "Error al obtener rol por Id",
-            };
+                var responseResult = await _roleService.GetRoleByIdAsync(id);
 
-            return Ok(outputResult);
+                var outputResult = new ResponseResult<RoleOutput>
+                {
+                    Result = responseResult,
+                    Status = responseResult != null ? true : false,
+                    Message = responseResult != null ? "Consulta exitosa" : "Error al obtener rol por Id",
+                };
+                return BuildResponse(outputResult);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { message = ex.Message });
+            }
         }
 
         [HttpPost("Create")]
@@ -62,12 +76,22 @@ namespace CentralSecurity.Api.Controllers
         [SwaggerResponse(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Create(RoleInput input)
         {
-            var responseResult = await _roleService.CreateRoleAsync(input);
-            return Ok(new {
-                Result = responseResult.Data,
-                responseResult.Status,
-                responseResult.Message
-            });
+            try
+            {
+                var responseResult = await _roleService.CreateRoleAsync(input);
+                var outputResult = new ResponseResult<ResultSp>
+                {
+                    Result = responseResult,
+                    Status = responseResult != null,
+                    Message = responseResult != null ? responseResult.Message : "Error al crear Rol"
+                };
+                return BuildResponse(outputResult);
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { message = ex.Message });
+            }
+            
         }
 
 
@@ -77,14 +101,36 @@ namespace CentralSecurity.Api.Controllers
         [SwaggerResponse(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Update(RoleInput input)
         {
-            var responseResult = await _roleService.UpdateRoleAsync(input);
+            try
+            {
+                var responseResult = await _roleService.UpdateRoleAsync(input);
+                var outputResult = new ResponseResult<ResultSp>
+                {
+                    Result = responseResult,
+                    Status = responseResult != null,
+                    Message = responseResult != null ? responseResult.Message : "Error al actualizar Rol"
+                };
+                return BuildResponse(outputResult);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { message = ex.Message });
+            }
+
+        }
+
+        private IActionResult BuildResponse<T>(ResponseResult<T> responseResult)
+        {
+            if (responseResult == null || !responseResult.Status)
+            {
+                return NotFound(new { message = responseResult?.Message ?? "Ocurrió un error." });
+            }
             return Ok(new
             {
-                Result = responseResult.Data,
+                responseResult.Result,
                 responseResult.Status,
                 responseResult.Message
             });
-
         }
 
     }

@@ -1,5 +1,6 @@
 ﻿using CentralSecurity.Api.Models.Input;
 using CentralSecurity.Api.Services.Interfaces;
+using CentralSecurity.Domain.Common;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -24,15 +25,34 @@ namespace CentralSecurity.Api.Controllers
         [SwaggerResponse(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Create(RoleMenuInput input)
         {
-            var responseResult = await _permisoService.CreatePermisoAsync(input);
+            try
+            {
+                var responseResult = await _permisoService.CreatePermisoAsync(input);
+                var outputResult = new ResponseResult<ResultSp>
+                {
+                    Result = responseResult,
+                    Status = responseResult != null,
+                    Message = responseResult != null ? responseResult.Message : "Error al crear usuario"
+                };
+                return BuildResponse(outputResult);
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { message = ex.Message });
+            }
+        }
+        private IActionResult BuildResponse<T>(ResponseResult<T> responseResult)
+        {
+            if (responseResult == null || !responseResult.Status)
+            {
+                return NotFound(new { message = responseResult?.Message ?? "Ocurrió un error." });
+            }
             return Ok(new
             {
-                Result = responseResult.Data,
+                responseResult.Result,
                 responseResult.Status,
                 responseResult.Message
             });
         }
-
-
     }
 }

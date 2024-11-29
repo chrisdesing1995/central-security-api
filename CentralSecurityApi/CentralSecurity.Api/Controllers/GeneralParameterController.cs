@@ -26,16 +26,24 @@ namespace CentralSecurity.Api.Controllers
         [SwaggerResponse(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetAll()
         {
-            var responseResult = await _generalParameterService.GetAllGeneralParameterAsync();
-
-            var outputResult = new ResponseResult<IEnumerable<GeneralParameterOutput>>
+            try
             {
-                Result = responseResult,
-                Status = responseResult != null ? true : false,
-                Message = responseResult != null ? "Consulta exitosa" : "Error al obtener parametros generales",
-            };
+                var responseResult = await _generalParameterService.GetAllGeneralParameterAsync();
 
-            return Ok(outputResult);
+                var outputResult = new ResponseResult<IEnumerable<GeneralParameterOutput>>
+                {
+                    Result = responseResult,
+                    Status = responseResult != null ? true : false,
+                    Message = responseResult != null ? "Consulta exitosa" : "Error al obtener parametros generales",
+                };
+
+                return BuildResponse(outputResult);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { message = ex.Message });
+            }
+            
         }
 
         [HttpGet("GetById/{id}")]
@@ -44,16 +52,24 @@ namespace CentralSecurity.Api.Controllers
         [SwaggerResponse(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetById(Guid id)
         {
-            var responseResult = await _generalParameterService.GetGeneralParameterByIdAsync(id);
-
-            var outputResult = new ResponseResult<GeneralParameterOutput>
+            try
             {
-                Result = responseResult,
-                Status = responseResult != null ? true : false,
-                Message = responseResult != null ? "Consulta exitosa" : "Error al obtener parametro generales por Id",
-            };
+                var responseResult = await _generalParameterService.GetGeneralParameterByIdAsync(id);
 
-            return Ok(outputResult);
+                var outputResult = new ResponseResult<GeneralParameterOutput>
+                {
+                    Result = responseResult,
+                    Status = responseResult != null ? true : false,
+                    Message = responseResult != null ? "Consulta exitosa" : "Error al obtener parametro generales por Id",
+                };
+
+                return BuildResponse(outputResult);
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { message = ex.Message });
+            }
+            
         }
 
         [HttpGet("GetByCode/{code}")]
@@ -62,16 +78,24 @@ namespace CentralSecurity.Api.Controllers
         [SwaggerResponse(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetByCode(string code)
         {
-            var responseResult = await _generalParameterService.GetGeneralParameterByCodeAsync(code);
-
-            var outputResult = new ResponseResult<IEnumerable<GeneralParameterDetailOutput>>
+            try
             {
-                Result = responseResult,
-                Status = responseResult != null ? true : false,
-                Message = responseResult != null ? "Consulta exitosa" : "Error al obtener parametro generales por codigo",
-            };
+                var responseResult = await _generalParameterService.GetGeneralParameterByCodeAsync(code);
 
-            return Ok(outputResult);
+                var outputResult = new ResponseResult<IEnumerable<GeneralParameterDetailOutput>>
+                {
+                    Result = responseResult,
+                    Status = responseResult != null ? true : false,
+                    Message = responseResult != null ? "Consulta exitosa" : "Error al obtener parametro generales por codigo",
+                };
+
+                return BuildResponse(outputResult);
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { message = ex.Message });
+            }
+            
         }
 
         [HttpPost("Create")]
@@ -80,13 +104,22 @@ namespace CentralSecurity.Api.Controllers
         [SwaggerResponse(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Create(GeneralParameterInput input)
         {
-            var responseResult = await _generalParameterService.CreateGeneralParameterAsync(input);
-            return Ok(new
+            try
             {
-                Result = responseResult.Data,
-                responseResult.Status,
-                responseResult.Message
-            });
+                var responseResult = await _generalParameterService.CreateGeneralParameterAsync(input);
+                var outputResult = new ResponseResult<ResultSp>
+                {
+                    Result = responseResult,
+                    Status = responseResult != null,
+                    Message = responseResult != null ? responseResult.Message : "Error al crear usuario"
+                };
+                return BuildResponse(outputResult);
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { message = ex.Message });
+            }
+            
         }
 
 
@@ -96,14 +129,35 @@ namespace CentralSecurity.Api.Controllers
         [SwaggerResponse(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Update(GeneralParameterInput input)
         {
-            var responseResult = await _generalParameterService.UpdateGeneralParameterAsync(input);
+            try
+            {
+                var responseResult = await _generalParameterService.UpdateGeneralParameterAsync(input);
+                var outputResult = new ResponseResult<ResultSp>
+                {
+                    Result = responseResult,
+                    Status = responseResult != null,
+                    Message = responseResult != null ? responseResult.Message : "Error al crear usuario"
+                };
+                return BuildResponse(outputResult);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { message = ex.Message });
+            }
+
+        }
+        private IActionResult BuildResponse<T>(ResponseResult<T> responseResult)
+        {
+            if (responseResult == null || !responseResult.Status)
+            {
+                return NotFound(new { message = responseResult?.Message ?? "Ocurrió un error." });
+            }
             return Ok(new
             {
-                Result = responseResult.Data,
+                responseResult.Result,
                 responseResult.Status,
                 responseResult.Message
             });
-
         }
     }
 }
