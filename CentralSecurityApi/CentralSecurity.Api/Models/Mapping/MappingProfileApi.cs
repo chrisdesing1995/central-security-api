@@ -16,6 +16,9 @@ namespace CentralSecurity.Api.Models.Mapping
             CreateMap<UserOutput, UserType>();
             CreateMap<UserType, UserOutput>();
 
+            CreateMap<ObjectFileOutput, ObjectFileType>();
+            CreateMap<ObjectFileType, ObjectFileOutput>();
+
             CreateMap<RoleOutput, RoleType>();
             CreateMap<RoleType, RoleOutput>();
 
@@ -36,6 +39,9 @@ namespace CentralSecurity.Api.Models.Mapping
 
             CreateMap<UserInput, UserType>();
             CreateMap<UserType, UserInput>();
+
+            CreateMap<ObjectFileInput, ObjectFileType>();
+            CreateMap<ObjectFileType, ObjectFileInput>();
 
             CreateMap<RoleInput, RoleType>();
             CreateMap<RoleType, RoleInput>();

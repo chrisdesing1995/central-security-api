@@ -1,5 +1,6 @@
 ﻿
 using AutoMapper;
+using CentralSecurity.Domain.Common;
 using CentralSecurity.Domain.Interfaces.Repositories;
 using CentralSecurity.Domain.Queries.Interfaces;
 using CentralSecurity.Domain.Types;
@@ -10,11 +11,13 @@ namespace CentralSecurity.Domain.Queries
     {
         private readonly IMapper _mapper;
         private readonly IUserRepository _userRepository;
+        private readonly IObjectFileRepository _objectFileRepository;
 
-        public UserQueries(IMapper mapper, IUserRepository userRepository)
+        public UserQueries(IMapper mapper, IUserRepository userRepository, IObjectFileRepository objectFileRepository)
         {
             _mapper = mapper;
             _userRepository = userRepository;
+            _objectFileRepository = objectFileRepository;
         }
 
         public async Task<IEnumerable<UserType>> GetAllUserAsync()
@@ -36,8 +39,18 @@ namespace CentralSecurity.Domain.Queries
             try
             {
                 var user = await _userRepository.GetUserByIdAsync(userId);
+                user.Password = CommonService.ConverToDecrypt(user.Password ?? "");
+                var objectFile = await _objectFileRepository.GetObjectFileByEntityAsync(user.Id,"User");
 
-                return _mapper.Map<UserType>(user);
+                var userType = _mapper.Map<UserType>(user);
+                if (objectFile is not null)
+                {
+                    userType.ObjectFileId = objectFile.Id;
+                    userType.ObjectFileData = objectFile.ObjectData;
+
+                }
+
+                return userType;
             }
             catch (Exception ex)
             {

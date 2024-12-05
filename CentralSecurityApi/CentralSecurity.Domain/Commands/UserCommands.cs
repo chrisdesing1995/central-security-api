@@ -47,6 +47,9 @@ namespace CentralSecurity.Domain.Commands
                 var userDto = _mapper.Map<UserDto>(userType);
                 userDto.UpdatedAt = DateTime.Now;
                 userDto.UserUpdated = _auditService.GetCurrentUserName();
+                userDto.Password = CommonService.ConverToEncrypt(userType.Password ?? "");
+                userDto.ObjectFileId = userType.ObjectFileId;
+                userDto.ObjectFileData = userType.ObjectFileData;
                 var result = await _userRepository.UpdateUserAsync(userDto);
 
                 return result;

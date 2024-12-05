@@ -92,6 +92,7 @@ builder.Services.AddScoped<IPermisoService, PermisoService>();
 builder.Services.AddScoped<IPermisoCommands, PermisoCommands>();
 builder.Services.AddScoped<IPermisoRepository, PermisoRepository>();
 
+builder.Services.AddScoped<IObjectFileRepository, ObjectFileRepository>();
 
 builder.Services.AddScoped<IGeneralParameterService, GeneralParameterService>();
 builder.Services.AddScoped<IGeneralParameterCommands, GeneralParameterCommands>();

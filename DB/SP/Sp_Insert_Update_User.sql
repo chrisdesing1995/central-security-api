@@ -11,6 +11,8 @@ CREATE OR ALTER PROCEDURE [dbo].[Sp_Insert_Update_User]
     @Email NVARCHAR(100),
 	@Phone  NVARCHAR(100) = NULL,
     @IsActive NVARCHAR(1),
+	@ObjectId UNIQUEIDENTIFIER = NULL,
+	@ObjectFile NVARCHAR(MAX) = NULL,
     @UserCreated NVARCHAR(100) = NULL,
     @UserUpdated NVARCHAR(100) = NULL,
     @Accion NVARCHAR(20)
@@ -45,22 +47,16 @@ BEGIN
             INSERT INTO [dbo].[User] ([Id],[Name],[SurName],[Username],[Password],[Email],[Phone],[IsActive],[CreatedAt],[UserCreated],[UpdatedAt],[UserUpdated])
 			VALUES (@Id, @Name, @SurName, @Username, @Password, @Email, @Phone, @IsActive, GETDATE(), @UserCreated, NULL, NULL);
 
-			
 			EXEC [dbo].[Sp_Insert_AuditLog] @Action = @Accion,
 											@TableName = 'User',
 											@User = @UserCreated,
 											@Details = @AuditDetails;
 
-            INSERT INTO [dbo].[UserRole] ([UserId],[RoleId])
-            SELECT @Id, value
-            FROM STRING_SPLIT(@RoleIds, ',');
-			
-			SET @AuditDetails = CONCAT('Acción: ', @Accion, ', Username: ', @Username, ', Roles Ids: ', @RoleIds);
-
-			EXEC [dbo].[Sp_Insert_AuditLog] @Action = @Accion,
-											@TableName = 'UserRole',
-											@User = @UserCreated,
-											@Details = @AuditDetails;
+			EXEC [dbo].[Sp_Insert_Update_UserRole] @UserId = @Id,
+													@RoleIds = @RoleIds,
+													@UserCreated = @UserCreated,
+													@UserUpdated = @UserUpdated,
+													@Accion = @Accion;
 
             SET @MESSAGES = 'Usuario creado exitosamente.';
             SET @Status = 1;
@@ -84,19 +80,22 @@ BEGIN
 								@User = @UserUpdated,
 								@Details = @AuditDetails;
 
-            DELETE FROM [dbo].[UserRole]
-            WHERE [UserId] = @Id;
+            EXEC [dbo].[Sp_Insert_Update_UserRole] @UserId = @Id,
+													@RoleIds = @RoleIds,
+													@UserCreated = @UserCreated,
+													@UserUpdated = @UserUpdated,
+													@Accion = @Accion;
+			IF @ObjectFile IS NOT NULL
+			BEGIN
+				SET @UserCreated = ISNULL(@UserCreated,@UserUpdated);
+				EXEC [dbo].[Sp_Insert_Update_ObjectFile] @Id = @ObjectId,
+														@EntityId = @Id,
+														@EntityName = 'User',
+														@ObjectData = @ObjectFile,
+														@UserCreated = @UserCreated,
+														@UserUpdated = @UserUpdated;
+			END
 
-            INSERT INTO [dbo].[UserRole] ([UserId],[RoleId])
-            SELECT @Id, value
-            FROM STRING_SPLIT(@RoleIds, ',');
-			
-			SET @AuditDetails = CONCAT('Acción: ', @Accion, ', Username: ', @Username, ', Roles Ids: ', @RoleIds);
-
-			EXEC [dbo].[Sp_Insert_AuditLog] @Action = @Accion,
-											@TableName = 'UserRole',
-											@User = @UserUpdated,
-											@Details = @AuditDetails;
 
             SET @MESSAGES = 'Usuario actualizado exitosamente.';
             SET @Status = 1;
@@ -114,6 +113,12 @@ BEGIN
 
         SET @MESSAGES = ERROR_MESSAGE();
         SET @Status = 0;
+		SET @UserCreated = ISNULL(@UserCreated,@UserUpdated);
+		EXEC [dbo].[Sp_Insert_AuditLog] @Action = @Accion,
+											@TableName = 'User',
+											@User = @UserUpdated,
+											@Details = @MESSAGES;
+
     END CATCH
 
     SELECT @MESSAGES AS Messages, @Status AS Status, CONVERT(NVARCHAR(100),@Id) AS Data;

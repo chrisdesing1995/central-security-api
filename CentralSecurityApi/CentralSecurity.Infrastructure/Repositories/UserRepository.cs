@@ -127,6 +127,8 @@ namespace CentralSecurity.Infrastructure.Repositories
                 new SqlParameter("@Email", input.Email),
                 new SqlParameter("@Phone", input.Phone ?? SqlString.Null),
                 new SqlParameter("@IsActive", input.IsActive),
+                new SqlParameter("@ObjectId", input.ObjectFileId != null && input.ObjectFileId != Guid.Empty ? (object)input.ObjectFileId : SqlString.Null),
+                new SqlParameter("@ObjectFile", input.ObjectFileData ?? SqlString.Null),
                 new SqlParameter("@UserCreated", input.UserCreated ?? SqlString.Null),
                 new SqlParameter("@UserUpdated", input.UserUpdated ?? SqlString.Null),
                 new SqlParameter("@Accion", Accion)

@@ -43,6 +43,7 @@ namespace CentralSecurity.Infrastructure.Constant
             public const string SP_INSERT_UPDATE_ROL = "Sp_Insert_Update_Role";
 
             public const string SP_INSERT_ROLMENU = "Sp_Insert_RoleMenu";
+            public const string SP_GET_ALL_OBJECTFILE_ENTITY = "Sp_Get_ObjectFile_By_Entity";
 
             public const string SP_GET_ALL_GENERAL_PARAMETERS = "Sp_Get_GeneralParameters";
             public const string SP_GET_ALL_GENERAL_PARAMETER_ID = "Sp_Get_GeneralParameters_By_Id";

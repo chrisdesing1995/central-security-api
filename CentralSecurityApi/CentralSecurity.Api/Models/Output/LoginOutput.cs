@@ -10,5 +10,7 @@
         public string RoleIds { get; set; }
         public string? RoleNames { get; set; }
         public string? Token { get; set; }
+        public Guid? ObjectFileId { get; set; }
+        public string? ObjectFileData { get; set; }
     }
 }

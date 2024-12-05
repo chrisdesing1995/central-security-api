@@ -41,6 +41,12 @@ namespace CentralSecurity.Infrastructure.Mapping
             CreateMap<UserDto, UserType>();
             CreateMap<UserType, UserDto>();
 
+            CreateMap<ObjectFileSpDto, ObjectFileType>();
+            CreateMap<ObjectFileType, ObjectFileSpDto>();
+
+            CreateMap<ObjectFileDto, ObjectFileType>();
+            CreateMap<ObjectFileType, ObjectFileDto>();
+
             CreateMap<RoleDto, RoleType>();
             CreateMap<RoleType, RoleDto>();
 

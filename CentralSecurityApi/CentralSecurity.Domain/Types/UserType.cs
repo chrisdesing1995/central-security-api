@@ -13,5 +13,7 @@ namespace CentralSecurity.Domain.Types
         public string IsActive { get; set; }
         public string RoleIds { get; set; }
         public string? RoleNames { get; set; }
+        public Guid? ObjectFileId { get; set; }
+        public string? ObjectFileData { get; set; }
     }
 }

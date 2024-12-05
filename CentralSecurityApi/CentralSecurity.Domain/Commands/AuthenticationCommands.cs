@@ -17,12 +17,14 @@ namespace CentralSecurity.Domain.Commands
         private IMapper _mapper;
         private IConfiguration _configuration;
         private IAuthenticationRepository _authenticationRepository;
+        private IObjectFileRepository _objectFileRepository;
 
-        public AuthenticationCommands(IMapper mapper, IConfiguration configuration, IAuthenticationRepository authenticationRepository)
+        public AuthenticationCommands(IMapper mapper, IConfiguration configuration, IAuthenticationRepository authenticationRepository, IObjectFileRepository objectFileRepository)
         {
             _mapper = mapper;
             _configuration = configuration;
             _authenticationRepository = authenticationRepository;
+            _objectFileRepository = objectFileRepository;
         }
 
         public async Task<UserLoginType> AuthenticateLogin(LoginType loginType)
@@ -47,6 +49,15 @@ namespace CentralSecurity.Domain.Commands
                 
                 var usertype = _mapper.Map<UserLoginType>(userDto);
                 usertype.Token = jwtToken;
+
+                var objectFile = await _objectFileRepository.GetObjectFileByEntityAsync(userDto.Id, "User");
+
+                if (objectFile is not null)
+                {
+                    usertype.ObjectFileId = objectFile.Id;
+                    usertype.ObjectFileData = objectFile.ObjectData;
+
+                }
                 return usertype;
 
             }
